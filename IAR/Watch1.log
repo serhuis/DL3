@@ -1,0 +1,117 @@
+Expression	Value	Location	Type	
+DeviceMode	'.' (0x04)	Memory:0x336	u8	
+DeviceFault	<union>	Memory:0x337	tFault	
+byte	'\0' (0x00)	Memory:0x337	u8	
+	<struct>	Memory:0x337	struct __Unnamed_2_204	
+CalibrFault	<union>	Memory:0x338	tCalibrFault	
+byte	'\0' (0x00)	Memory:0x338	u8	
+	<struct>	Memory:0x338	struct __Unnamed_2_195	
+fCalibr_Hi	'\0' (0x00)	Memory:0x338	u8	
+fCalibr_Low	'\0' (0x00)	Memory:0x338	u8	
+calibr_stage	'.' (0x06)	Memory:0x33B	u8	
+s_array	<array>	Memory:0x2EC	u16 [6]	
+q_array	<array>""	Memory:0x33C	u8 [6]	
+P1OUT	0b00011100	Memory:0x21	unsigned char	
+P2OUT	0b01000001	Memory:0x29	unsigned char	
+gain	'.' (0x03)	Memory:0x343	s8	
+signal_array	<array>	Memory:0x218	s16 [100]	
+[0]	1	Memory:0x218	s16	
+[1]	3	Memory:0x21A	s16	
+[2]	6	Memory:0x21C	s16	
+[3]	7	Memory:0x21E	s16	
+[4]	4	Memory:0x220	s16	
+[5]	-3	Memory:0x222	s16	
+[6]	-16	Memory:0x224	s16	
+[7]	-27	Memory:0x226	s16	
+[8]	-29	Memory:0x228	s16	
+[9]	-17	Memory:0x22A	s16	
+[10]	6	Memory:0x22C	s16	
+[11]	34	Memory:0x22E	s16	
+[12]	54	Memory:0x230	s16	
+[13]	54	Memory:0x232	s16	
+[14]	31	Memory:0x234	s16	
+[15]	-6	Memory:0x236	s16	
+[16]	-42	Memory:0x238	s16	
+[17]	-62	Memory:0x23A	s16	
+[18]	-56	Memory:0x23C	s16	
+[19]	-27	Memory:0x23E	s16	
+[20]	12	Memory:0x240	s16	
+[21]	42	Memory:0x242	s16	
+[22]	52	Memory:0x244	s16	
+[23]	37	Memory:0x246	s16	
+[24]	6	Memory:0x248	s16	
+[25]	-25	Memory:0x24A	s16	
+[26]	-44	Memory:0x24C	s16	
+[27]	-41	Memory:0x24E	s16	
+[28]	-18	Memory:0x250	s16	
+[29]	13	Memory:0x252	s16	
+[30]	38	Memory:0x254	s16	
+[31]	46	Memory:0x256	s16	
+[32]	34	Memory:0x258	s16	
+[33]	9	Memory:0x25A	s16	
+[34]	-17	Memory:0x25C	s16	
+[35]	-36	Memory:0x25E	s16	
+[36]	-40	Memory:0x260	s16	
+[37]	-32	Memory:0x262	s16	
+[38]	-15	Memory:0x264	s16	
+[39]	0	Memory:0x266	s16	
+[40]	12	Memory:0x268	s16	
+[41]	18	Memory:0x26A	s16	
+[42]	17	Memory:0x26C	s16	
+[43]	14	Memory:0x26E	s16	
+[44]	9	Memory:0x270	s16	
+[45]	3	Memory:0x272	s16	
+[46]	0	Memory:0x274	s16	
+[47]	-3	Memory:0x276	s16	
+[48]	-4	Memory:0x278	s16	
+[49]	-4	Memory:0x27A	s16	
+[50]	-2	Memory:0x27C	s16	
+[51]	0	Memory:0x27E	s16	
+[52]	0	Memory:0x280	s16	
+[53]	0	Memory:0x282	s16	
+[54]	0	Memory:0x284	s16	
+[55]	0	Memory:0x286	s16	
+[56]	0	Memory:0x288	s16	
+[57]	0	Memory:0x28A	s16	
+[58]	1	Memory:0x28C	s16	
+[59]	2	Memory:0x28E	s16	
+[60]	3	Memory:0x290	s16	
+[61]	2	Memory:0x292	s16	
+[62]	1	Memory:0x294	s16	
+[63]	0	Memory:0x296	s16	
+[64]	-2	Memory:0x298	s16	
+[65]	-3	Memory:0x29A	s16	
+[66]	-2	Memory:0x29C	s16	
+[67]	0	Memory:0x29E	s16	
+[68]	1	Memory:0x2A0	s16	
+[69]	2	Memory:0x2A2	s16	
+[70]	2	Memory:0x2A4	s16	
+[71]	1	Memory:0x2A6	s16	
+[72]	0	Memory:0x2A8	s16	
+[73]	-1	Memory:0x2AA	s16	
+[74]	-1	Memory:0x2AC	s16	
+[75]	-1	Memory:0x2AE	s16	
+[76]	-1	Memory:0x2B0	s16	
+[77]	-1	Memory:0x2B2	s16	
+[78]	-1	Memory:0x2B4	s16	
+[79]	0	Memory:0x2B6	s16	
+[80]	0	Memory:0x2B8	s16	
+[81]	0	Memory:0x2BA	s16	
+[82]	0	Memory:0x2BC	s16	
+[83]	0	Memory:0x2BE	s16	
+[84]	1	Memory:0x2C0	s16	
+[85]	2	Memory:0x2C2	s16	
+[86]	3	Memory:0x2C4	s16	
+[87]	3	Memory:0x2C6	s16	
+[88]	2	Memory:0x2C8	s16	
+[89]	0	Memory:0x2CA	s16	
+[90]	-1	Memory:0x2CC	s16	
+[91]	-2	Memory:0x2CE	s16	
+[92]	-3	Memory:0x2D0	s16	
+[93]	-2	Memory:0x2D2	s16	
+[94]	-1	Memory:0x2D4	s16	
+[95]	0	Memory:0x2D6	s16	
+[96]	0	Memory:0x2D8	s16	
+[97]	0	Memory:0x2DA	s16	
+[98]	1	Memory:0x2DC	s16	
+[99]	0	Memory:0x2DE	s16	
