@@ -1106,7 +1106,7 @@ void CalibrationResultAnalise(void) {
 		}
 			
 		if (((temp >= 90) && (temp <= 200)) || 
-			((temp >= 480) && (temp <= /*600*/650))) {
+			((temp >= 480) && (temp <= 600))) {
 			i_ok = i;
 			break;
 		}
