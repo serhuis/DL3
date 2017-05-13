@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V6.40.1.950/W32 for MSP430           27/Apr/2017  17:16:23
+# IAR C/C++ Compiler V6.40.1.950/W32 for MSP430           11/May/2017  17:13:07
 # Copyright 1996-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for Texas Instruments MSP430
 #
@@ -14,11 +14,10 @@
 #    Command line  =  
 #        E:\_ARTON_PROJ\ARTON-DL3\soft\current\soft_uart.c -lcN
 #        E:\_ARTON_PROJ\ARTON-DL3\soft\current\IAR\Debug\List -o
-#        E:\_ARTON_PROJ\ARTON-DL3\soft\current\IAR\Debug\Obj --no_cse
-#        --no_unroll --no_inline --no_code_motion --no_tbaa --debug
-#        -D__MSP430G2553__ -e --double=32 --regvar_r4 --dlib_config "C:\Program
-#        Files (x86)\IAR Systems\Embedded Workbench 7.3\430\lib\dlib\dl430fn.h"
-#        -I ..\ -I .\ -Ol
+#        E:\_ARTON_PROJ\ARTON-DL3\soft\current\IAR\Debug\Obj --no_unroll
+#        --no_inline --no_tbaa --debug -D__MSP430G2553__ -e --double=32
+#        --regvar_r4 --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 7.3\430\lib\dlib\dl430fn.h" -I ..\ -I .\ -Om
 #    List file     =  
 #        E:\_ARTON_PROJ\ARTON-DL3\soft\current\IAR\Debug\List\soft_uart.lst
 #    Object file   =  
@@ -374,13 +373,13 @@ E:\_ARTON_PROJ\ARTON-DL3\soft\current\soft_uart.c
        1  P2REN
       38  SoftUART_Init
       24  SoftUART_ResetReceiveByte
-     192  SoftUART_RxParse
+     184  SoftUART_RxParse
       78  SoftUART_SendByte
       36  SoftUART_SetReceiveByte
       22  SoftUART_TxChar
       16  SoftUART_TxMode_OFF
       36  SoftUART_TxMode_ON
-      42  SoftUART_TxString
+      38  SoftUART_TxString
        2  TA0CCR0
        2  TA0CCTL0
        2  TA0CCTL1
@@ -392,12 +391,12 @@ E:\_ARTON_PROJ\ARTON-DL3\soft\current\soft_uart.c
        1  uart_timer
 
  
- 484 bytes in segment CODE
+ 472 bytes in segment CODE
   16 bytes in segment DATA16_AN
    8 bytes in segment DATA16_C
   42 bytes in segment DATA16_Z
  
- 484 bytes of CODE  memory
+ 472 bytes of CODE  memory
    8 bytes of CONST memory
   42 bytes of DATA  memory (+ 16 bytes shared)
 

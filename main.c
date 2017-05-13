@@ -115,6 +115,7 @@ const u8 calibr_sequence[CALIBR_STAGES][3] = {
 //			 Amp_No	Gain  Reference
 			{  1,    0,     2 },
 			{  2,    0,     1 },
+//			{  2,    0,     0 },
 			{  2,    1,     1 },
 			{  2,    2,     1 },
 			{  2,    3,     1 },
@@ -294,7 +295,7 @@ void SetLevels(u16 norm) {
 //--------------------------------------------------------------------------------
 void SetLevelsFromCalibr(u16 norm, u8 nonlinearity_corr) {
 	u16 temp;
-	u8  d;	
+	u16  d;	
 	StoragePropertyWord(eeLIMIT_NORM_OFFSET, norm);
 	//
 	switch (nonlinearity_corr) {
@@ -303,6 +304,8 @@ void SetLevelsFromCalibr(u16 norm, u8 nonlinearity_corr) {
 			break;
 		case 1:
 			d = norm * 23 / 100;
+
+			
 			break;
 		case 2:
 			d = norm * 18 / 100;
@@ -656,7 +659,7 @@ u8 SignalAnalysis(void) {
 	
 	
 	// Searching for of importance of the amplitude of the signal on possible gap of time
-	for (i = 15; i < SIGNAL_ARRAY_LEN - 2; i++) {
+	for (i = 10; i < SIGNAL_ARRAY_LEN - 2; i++) {
 		sample = signal_array[i];
 		if (((sample >  signal_array[i - 1]) && (sample >  signal_array[i + 1]) && (sample > signal_array[i - 2]) && (sample > signal_array[i + 2])) ||
 		    ((sample >  signal_array[i - 1]) && (sample == signal_array[i + 1]) && (sample > signal_array[i - 2]) && (sample > signal_array[i + 2])) || 
@@ -1145,6 +1148,8 @@ void CalibrationResultAnalise(void) {
 		d = s_array[i];
 		//q = q_array[i]; 
 		//
+
+	
 		if (i == 0) {
 			if (d >= 480) {
 				CalibrFault.fCalibr_Hi = 1;
@@ -1152,14 +1157,21 @@ void CalibrationResultAnalise(void) {
 				return;
 			}
 			//
+
 			if (d >= 330) {
 				corr = 2;
 			}else
 			if (d >= 170) {
 				corr = 1;
 			}
+
 		}
-			
+/*
+			if (CALIBR_STAGES - 2 <= i)
+		{
+			corr = 1;
+		}
+	*/		
 		// That's Ok
 		//SetLevels(d);
 		SetLevelsFromCalibr(d, corr);
@@ -1379,10 +1391,10 @@ void main(void) {
 //DL3					FIRE_SET();				// Set Fire output key
                                         NFAULT_SET();
 //DL3   	
-/*DL3					
+
 					DeviceFault.fStrobNone = 0;
 					strob_pulse_timer = 0;
-*/					//
+
 					calibr_stage = 0;
 					n_counter = 0;
 					summa = 0;
@@ -1640,7 +1652,7 @@ void main(void) {
 				if (n_counter >= 2) {
 					delta = summa / n_counter;
 		
-                                        n_counter = 0;
+					n_counter = 0;
 					summa = 0;
 					//
 					s_array[calibr_stage] = delta;
@@ -1850,8 +1862,8 @@ label_light:
 			//
 			if ((DeviceMode == MODE_PREFIRE) || (DeviceMode == MODE_PREPREFIRE)) {
 				light_timer = 4;				// Value - the light power
-//				flash_period_timer = 120;		// Flash after 1.2 sec
-				flash_period_timer = 60;		// Flash after 1.2 sec
+				flash_period_timer = 120;		// Flash after 1.2 sec
+//				flash_period_timer = 60;		// Flash after 1.2 sec
 			}
 			//
 			if (DeviceMode == MODE_CALIBR) {
@@ -1889,7 +1901,7 @@ label_light:
 
   //DL3                        Timer_A0_SetDelay(2250);
                         Timer_A0_StopPWM();
-                        Timer_A0_SetDelay(1000);
+                        Timer_A0_SetDelay(1500);
 
 //                        
 			_BIS_SR(GIE);    			// Разрешаем прерывания

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V6.40.1.950/W32 for MSP430           27/Apr/2017  17:16:23
+# IAR C/C++ Compiler V6.40.1.950/W32 for MSP430           11/May/2017  17:13:07
 # Copyright 1996-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for Texas Instruments MSP430
 #
@@ -14,11 +14,10 @@
 #    Command line  =  
 #        E:\_ARTON_PROJ\ARTON-DL3\soft\current\flash.c -lcN
 #        E:\_ARTON_PROJ\ARTON-DL3\soft\current\IAR\Debug\List -o
-#        E:\_ARTON_PROJ\ARTON-DL3\soft\current\IAR\Debug\Obj --no_cse
-#        --no_unroll --no_inline --no_code_motion --no_tbaa --debug
-#        -D__MSP430G2553__ -e --double=32 --regvar_r4 --dlib_config "C:\Program
-#        Files (x86)\IAR Systems\Embedded Workbench 7.3\430\lib\dlib\dl430fn.h"
-#        -I ..\ -I .\ -Ol
+#        E:\_ARTON_PROJ\ARTON-DL3\soft\current\IAR\Debug\Obj --no_unroll
+#        --no_inline --no_tbaa --debug -D__MSP430G2553__ -e --double=32
+#        --regvar_r4 --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 7.3\430\lib\dlib\dl430fn.h" -I ..\ -I .\ -Om
 #    List file     =  
 #        E:\_ARTON_PROJ\ARTON-DL3\soft\current\IAR\Debug\List\flash.lst
 #    Object file   =  
@@ -86,8 +85,8 @@ E:\_ARTON_PROJ\ARTON-DL3\soft\current\flash.c
      57          		.limit_low = 20,	
      58          		.limit_hi = 600,
      59          		.calibr_fault = 0,
-     60          		.Gain = 0,
-     61          		.AMP_No = 1,
+     60          		.Gain = 1,
+     61          		.AMP_No = 2,
      62          		//	
      63          		.CS = 0xFFFF,
      64           };
@@ -358,10 +357,10 @@ E:\_ARTON_PROJ\ARTON-DL3\soft\current\flash.c
       22  FlashEraseSegmentSafe
       18  FlashInit
       84  FlashWriteArray
-      54  FlashWriteByte
+      52  FlashWriteByte
       14  FlashWriteSegmentSafe
-      54  FlashWriteWord
-      28  GetPropertiesCS
+      52  FlashWriteWord
+      24  GetPropertiesCS
       26  SavePropertyCS
        2  SegCBackup
       54  StorageProperty
@@ -370,13 +369,13 @@ E:\_ARTON_PROJ\ARTON-DL3\soft\current\flash.c
       40  ee_config
 
  
- 442 bytes in segment CODE
+ 434 bytes in segment CODE
   40 bytes in segment DATA16_AC
    6 bytes in segment DATA16_AN
    2 bytes in segment DATA16_I
    2 bytes in segment DATA16_ID
  
- 442 bytes of CODE  memory
+ 434 bytes of CODE  memory
    2 bytes of CONST memory (+ 40 bytes shared)
    2 bytes of DATA  memory (+  6 bytes shared)
 

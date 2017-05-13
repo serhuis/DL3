@@ -57,8 +57,8 @@ const tEE_CONFIG 	ee_config @ FLASH_SEG_ADDR = {
 		.limit_low = 20,	
 		.limit_hi = 600,
 		.calibr_fault = 0,
-		.Gain = 0,
-		.AMP_No = 1,
+		.Gain = 1,
+		.AMP_No = 2,
 		//	
 		.CS = 0xFFFF,
  };

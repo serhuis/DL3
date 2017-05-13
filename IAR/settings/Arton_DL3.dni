@@ -1,5 +1,5 @@
 [DebugChecksum]
-Checksum=-1857824902
+Checksum=-543397750
 [Stack]
 FillEnabled=0
 OverflowWarningsEnabled=1
@@ -24,6 +24,9 @@ ShowArgs=0
 MixedMode=1
 [BreakpointUsageDialog]
 Placement=_ 738 379 1183 662
+[SfrWindow]
+Show=1 1
+Sort=4 0
 [InterruptLog]
 LogEnabled=0
 GraphEnabled=0
@@ -53,6 +56,9 @@ Enabled=0
 ShowSource=1
 [Simulator]
 Freq=1000000
+[RegisterFilter]
+FilePath=_ ""
+UseFilter=_ 0
 [array_types]
 Fmt0=s16 [100]	3	0
 [watch_formats]
@@ -72,8 +78,26 @@ GraphEnabled=0
 ShowTimeLog=1
 LiveEnabled=0
 LiveFile=PowerLogLive.log
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 1
+LogFile=_ "$PROJ_DIR$\TermIO.log"
+[PowerProbe]
+Frequency=10000
+Probe0=Current
+ProbeSetup0=0 1 1 2 0 0
+Probe1=Voltage
+ProbeSetup1=1 1 1 4 0 0
+Probe2=Energy
+ProbeSetup2=4 1 1 10 0 0
 [Breakpoints]
-Count=0
+Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\main.c}.743.3" 0 0 0 0 "" 0 ""
+Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\main.c}.1652.5" 0 0 0 0 "" 0 ""
+Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\main.c}.1649.5" 0 0 0 0 "" 0 ""
+Count=3
 [FET]
 Clock mode=39
 Secure Password=
@@ -93,21 +117,6 @@ SP=0
 SR=0
 all registers=0
 File name=E:\_ARTON_PROJ\ARTON-DL3\SOFT\CURRENT\IAR\ADC.DMP
-[Log file]
-LoggingEnabled=_ 0
-LogFile=_ ""
-Category=_ 0
-[TermIOLog]
-LoggingEnabled=_ 1
-LogFile=_ "$PROJ_DIR$\TermIO.log"
 [Aliases]
 Count=0
 SuppressDialog=0
-[PowerProbe]
-Frequency=10000
-Probe0=Current
-ProbeSetup0=0 1 1 2 0 0
-Probe1=Voltage
-ProbeSetup1=1 1 1 4 0 0
-Probe2=Energy
-ProbeSetup2=4 1 1 10 0 0

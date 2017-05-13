@@ -37,21 +37,21 @@
 #define SYS_TICK_TIME			10000	/* in us */
 	 
 // Modes of device
-#define	MODE_CALIBR			0x03
-#define	MODE_NORM			0x04
+#define	MODE_CALIBR					0x03
+#define	MODE_NORM						0x04
 #define	MODE_PREPREFIRE			0x05
-#define	MODE_PREFIRE			0x06
-#define	MODE_FAULT			0x07
-#define	MODE_TEST			0x08
-#define	MODE_FIRE			0x09
+#define	MODE_PREFIRE				0x06
+#define	MODE_FAULT					0x07
+#define	MODE_TEST						0x08
+#define	MODE_FIRE						0x09
 #define	MODE_FAULT_CHAIN		0x0A
 	 
 // Other constants
 //#define T50MS_DIV			152		/* DIV from T=1/3200Hz  to T=50ms */
 //#define VCC_DATA_LEN			8		
 #define ADC_CH_DATA_LEN			16
-#define TEMP_MEAS_LEN			8
-#define BOOST_STOP				1
+#define TEMP_MEAS_LEN				8
+#define BOOST_STOP					1
 
 
 #define DRIFT_SAMPLES_MAX		(10*60*60)	/* Number samples for define long term drift factor (~10 hours)*/

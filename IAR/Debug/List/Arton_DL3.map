@@ -2,7 +2,7 @@
 #                                                                              #
 #      IAR Universal Linker V6.3.4.78                                          #
 #                                                                              #
-#           Link time     =  28/Apr/2017  17:22:53                             #
+#           Link time     =  12/May/2017  11:22:46                             #
 #           Target CPU    =  MSP430                                            #
 #           List file     =  E:\_ARTON_PROJ\ARTON-DL3\soft\current\IAR\Debug\L #
 #                            ist\Arton_DL3.map                                 #
@@ -127,31 +127,31 @@ Absolute parts
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: DBAA - DBBD (0x14 bytes), align: 1
+  Relative segment, address: D900 - D913 (0x14 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           DelayUs_8MHz            DBAA            SoftUART_SendByte (soft_uart)
+           DelayUs_8MHz            D900            SoftUART_SendByte (soft_uart)
                                                    SoftUART_TxMode_ON (soft_uart)
                                                    main (main)
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D9EC - DA0B (0x20 bytes), align: 1
+  Relative segment, address: D72C - D74B (0x20 bytes), align: 1
   Segment part 3.             Intra module refs:   DelayMs
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           DelayUs                 D9EC            ADC_MeasureInit (main)
+           DelayUs                 D72C            ADC_MeasureInit (main)
                                                    ADC_Measure_Simple (main)
                                                    Led_Flash (main)
                                                    PORT1_ISR (hardware)
                                                    main (main)
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DBD2 - DBE5 (0x14 bytes), align: 1
+  Relative segment, address: D914 - D927 (0x14 bytes), align: 1
   Segment part 5.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           DelayMs                 DBD2            DeviceDiagnostics (main)
+           DelayMs                 D914            DeviceDiagnostics (main)
                                                    Led_Flash (main)
                                                    main (main)
                calls direct
@@ -204,74 +204,74 @@ DATA16_I
            SegCBackup              0200 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DC1C - DC2D (0x12 bytes), align: 1
+  Relative segment, address: D95E - D96F (0x12 bytes), align: 1
   Segment part 8.             Intra module refs:   StorageProperty
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           FlashInit               DC1C 
+           FlashInit               D95E 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DCD2 - DCD5 (0x4 bytes), align: 1
+  Relative segment, address: DA14 - DA17 (0x4 bytes), align: 1
   Segment part 9.             Intra module refs:   StorageProperty
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           FlashDeInit             DCD2 
+           FlashDeInit             DA14 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D834 - D863 (0x30 bytes), align: 1
+  Relative segment, address: D580 - D5AF (0x30 bytes), align: 1
   Segment part 10.            Intra module refs:   FlashEraseSegmentSafe
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           FlashEraseSegment       D834 
+           FlashEraseSegment       D580 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D634 - D687 (0x54 bytes), align: 1
+  Relative segment, address: D386 - D3D9 (0x54 bytes), align: 1
   Segment part 13.            Intra module refs:   FlashWriteSegmentSafe
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           FlashWriteArray         D634 
+           FlashWriteArray         D386 
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DB7E - DB93 (0x16 bytes), align: 1
+  Relative segment, address: D8EA - D8FF (0x16 bytes), align: 1
   Segment part 14.            Intra module refs:   StorageProperty
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           FlashEraseSegmentSafe   DB7E 
+           FlashEraseSegmentSafe   D8EA 
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DCA0 - DCAD (0xe bytes), align: 1
+  Relative segment, address: D9E2 - D9EF (0xe bytes), align: 1
   Segment part 15.            Intra module refs:   StorageProperty
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           FlashWriteSegmentSafe   DCA0 
+           FlashWriteSegmentSafe   D9E2 
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D798 - D7CD (0x36 bytes), align: 1
+  Relative segment, address: D51A - D54F (0x36 bytes), align: 1
   Segment part 16.            Intra module refs:   SavePropertyCS
                                                    StoragePropertyByte
                                                    StoragePropertyWord
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           StorageProperty         D798            SoftUART_RxParse (soft_uart)
+           StorageProperty         D51A            SoftUART_RxParse (soft_uart)
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DC2E - DC3F (0x12 bytes), align: 1
+  Relative segment, address: D970 - D981 (0x12 bytes), align: 1
   Segment part 17.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           StoragePropertyByte     DC2E            CalibrationResultAnalise (main)
+           StoragePropertyByte     D970            CalibrationResultAnalise (main)
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DBF8 - DC09 (0x12 bytes), align: 1
+  Relative segment, address: D93A - D94B (0x12 bytes), align: 1
   Segment part 18.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           StoragePropertyWord     DBF8            CalibrationResultAnalise (main)
+           StoragePropertyWord     D93A            CalibrationResultAnalise (main)
                                                    SetLevels (main)
                                                    SetLevelsFromCalibr (main)
                                                    SetLimitCompens (main)
@@ -279,18 +279,18 @@ DATA16_I
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DA68 - DA83 (0x1c bytes), align: 1
+  Relative segment, address: D88C - D8A3 (0x18 bytes), align: 1
   Segment part 19.            Intra module refs:   SavePropertyCS
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           GetPropertiesCS         DA68            DeviceDiagnostics (main)
+           GetPropertiesCS         D88C            DeviceDiagnostics (main)
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DA84 - DA9D (0x1a bytes), align: 1
+  Relative segment, address: D82A - D843 (0x1a bytes), align: 1
   Segment part 20.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SavePropertyCS          DA84            SetLevels (main)
+           SavePropertyCS          D82A            SetLevels (main)
                                                    SetLevelsFromCalibr (main)
                                                    SetLimitCompens (main)
                                                    SoftUART_RxParse (soft_uart)
@@ -497,50 +497,50 @@ DATA16_Z
            but                     0339 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D29A - D329 (0x90 bytes), align: 1
+  Relative segment, address: D090 - D115 (0x86 bytes), align: 1
   Segment part 25.            Intra module refs:   PORT1_ISR::??INTVEC 4
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           PORT1_ISR               D29A 
+           PORT1_ISR               D090 
                interrupt function
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D90E - D935 (0x28 bytes), align: 1
+  Relative segment, address: D608 - D62F (0x28 bytes), align: 1
   Segment part 26.            Intra module refs:   PORT2_ISR::??INTVEC 6
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           PORT2_ISR               D90E 
+           PORT2_ISR               D608 
                interrupt function
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DA9E - DAB7 (0x1a bytes), align: 1
+  Relative segment, address: D810 - D829 (0x1a bytes), align: 1
   Segment part 29.            Intra module refs:   GPIO_Init
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           BUT_INT_Init            DA9E 
+           BUT_INT_Init            D810 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D936 - D95B (0x26 bytes), align: 1
+  Relative segment, address: D630 - D655 (0x26 bytes), align: 1
   Segment part 30.            Intra module refs:   GPIO_Init
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           INTER_INT_Init          D936 
+           INTER_INT_Init          D630 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DAB8 - DAD1 (0x1a bytes), align: 1
+  Relative segment, address: D7F6 - D80F (0x1a bytes), align: 1
   Segment part 31.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           AMP_SetGain             DAB8            CalibrationResultAnalise (main)
+           AMP_SetGain             D7F6            CalibrationResultAnalise (main)
                                                    main (main)
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D51A - D57B (0x62 bytes), align: 1
+  Relative segment, address: D20C - D26D (0x62 bytes), align: 1
   Segment part 32.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           GPIO_Init               D51A            main (main)
+           GPIO_Init               D20C            main (main)
                calls direct
     -------------------------------------------------------------------------
 INTVEC
@@ -1104,15 +1104,15 @@ DATA16_Z
            PWM_period              030A 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D6D6 - D71F (0x4a bytes), align: 1
+  Relative segment, address: D428 - D46B (0x44 bytes), align: 1
   Segment part 100.           Intra module refs:   DeviceStart
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           VLO_TimerCalibr         D6D6            SoftUART_RxParse (soft_uart)
+           VLO_TimerCalibr         D428            SoftUART_RxParse (soft_uart)
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DB94 - DBA9 (0x16 bytes), align: 1
+  Relative segment, address: D8D4 - D8E9 (0x16 bytes), align: 1
   Segment part 101.           Intra module refs:   DeviceStart
                                                    SetLevels
                                                    SetLevelsFromCalibr
@@ -1120,70 +1120,69 @@ DATA16_Z
                                                    main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ClearDriftVar           DB94 
+           ClearDriftVar           D8D4 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DB36 - DB4D (0x18 bytes), align: 1
+  Relative segment, address: D85C - D873 (0x18 bytes), align: 1
   Segment part 102.           Intra module refs:   CalibrationResultAnalise
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SetLimitCompens         DB36            SoftUART_RxParse (soft_uart)
+           SetLimitCompens         D85C            SoftUART_RxParse (soft_uart)
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D4B4 - D519 (0x66 bytes), align: 1
+  Relative segment, address: D26E - D2CB (0x5e bytes), align: 1
   Segment part 103.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SetLevels               D4B4            SoftUART_RxParse (soft_uart)
+           SetLevels               D26E            SoftUART_RxParse (soft_uart)
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D0FA - D1D9 (0xe0 bytes), align: 1
+  Relative segment, address: CF62 - D003 (0xa2 bytes), align: 1
   Segment part 104.           Intra module refs:   CalibrationResultAnalise
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SetLevelsFromCalibr     D0FA 
+           SetLevelsFromCalibr     CF62 
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DC82 - DC91 (0x10 bytes), align: 1
+  Relative segment, address: D9C4 - D9D3 (0x10 bytes), align: 1
   Segment part 105.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           DeviceStart             DC82 
+           DeviceStart             D9C4 
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DCAE - DCB9 (0xc bytes), align: 1
+  Relative segment, address: D9F0 - D9FB (0xc bytes), align: 1
   Segment part 106.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           getZeroLevel            DCAE 
+           getZeroLevel            D9F0 
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DBBE - DBD1 (0x14 bytes), align: 1
+  Relative segment, address: D74C - D769 (0x1e bytes), align: 1
   Segment part 107.           Intra module refs:   main
            LOCAL                   ADDRESS         
            =====                   =======         
-           getTimerValue           DBBE 
-               calls direct
+           getTimerValue           D74C 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D57C - D5D7 (0x5c bytes), align: 1
+  Relative segment, address: D32A - D385 (0x5c bytes), align: 1
   Segment part 110.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ADC_MeasureInit         D57C 
+           ADC_MeasureInit         D32A 
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DB1E - DB35 (0x18 bytes), align: 1
+  Relative segment, address: D8A4 - D8BB (0x18 bytes), align: 1
   Segment part 111.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ADC_MeasureStart        DB1E 
+           ADC_MeasureStart        D8A4 
     -------------------------------------------------------------------------
 DATA16_C
   Relative segment, address: C01A - C02B (0x12 bytes), align: 0
@@ -1201,11 +1200,11 @@ DATA16_Z
            x                       030C 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D43E - D4B3 (0x76 bytes), align: 1
+  Relative segment, address: D19A - D20B (0x72 bytes), align: 1
   Segment part 113.           Intra module refs:   SignalAnalysis
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           fir_filter              D43E 
+           fir_filter              D19A 
                calls direct
     -------------------------------------------------------------------------
 DATA16_Z
@@ -1237,88 +1236,88 @@ DATA16_Z
            d4                      0336 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: CB28 - CE25 (0x2fe bytes), align: 1
+  Relative segment, address: C9C4 - CBF3 (0x230 bytes), align: 1
   Segment part 114.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SignalAnalysis          CB28 
+           SignalAnalysis          C9C4 
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D8BC - D8E5 (0x2a bytes), align: 1
+  Relative segment, address: D5DE - D607 (0x2a bytes), align: 1
   Segment part 115.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           Timer_A0_SetDelay       D8BC 
+           Timer_A0_SetDelay       D5DE 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D5D8 - D633 (0x5c bytes), align: 1
+  Relative segment, address: D2CC - D329 (0x5e bytes), align: 1
   Segment part 116.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           Timer_A0_StartPWM       D5D8 
+           Timer_A0_StartPWM       D2CC 
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DAD2 - DAEB (0x1a bytes), align: 1
+  Relative segment, address: D7DC - D7F5 (0x1a bytes), align: 1
   Segment part 117.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           Timer_A0_StopPWM        DAD2 
+           Timer_A0_StopPWM        D7DC 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DA4C - DA67 (0x1c bytes), align: 1
+  Relative segment, address: D7A6 - D7C1 (0x1c bytes), align: 1
   Segment part 120.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           Timer_A1_Init           DA4C 
+           Timer_A1_Init           D7A6 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DA0C - DA2B (0x20 bytes), align: 1
+  Relative segment, address: D76A - D787 (0x1e bytes), align: 1
   Segment part 121.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           Timer_A0_Off            DA0C 
+           Timer_A0_Off            D76A 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DB4E - DB65 (0x18 bytes), align: 1
+  Relative segment, address: D8BC - D8D3 (0x18 bytes), align: 1
   Segment part 122.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SetFaultMode            DB4E 
+           SetFaultMode            D8BC 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: CFCA - D0F9 (0x130 bytes), align: 1
+  Relative segment, address: CD98 - CEA9 (0x112 bytes), align: 1
   Segment part 123.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           FaultSignalManager      CFCA 
+           FaultSignalManager      CD98 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D3B6 - D43D (0x88 bytes), align: 1
+  Relative segment, address: D116 - D199 (0x84 bytes), align: 1
   Segment part 124.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           LedTestValueManager     D3B6 
+           LedTestValueManager     D116 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D95C - D981 (0x26 bytes), align: 1
+  Relative segment, address: D6C4 - D6E7 (0x24 bytes), align: 1
   Segment part 125.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ADC_SetParam            D95C 
+           ADC_SetParam            D6C4 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: CE26 - CFC9 (0x1a4 bytes), align: 1
+  Relative segment, address: CBF4 - CD97 (0x1a4 bytes), align: 1
   Segment part 126.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CalibrationResultAnalise
-                                   CE26 
+                                   CBF4 
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C060 - CB27 (0xac8 bytes), align: 1
+  Relative segment, address: C060 - C9C3 (0x964 bytes), align: 1
   Segment part 131.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
@@ -1326,84 +1325,84 @@ DATA16_Z
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DC40 - DC51 (0x12 bytes), align: 1
+  Relative segment, address: D982 - D993 (0x12 bytes), align: 1
   Segment part 132.           Intra module refs:   watchdog_timer::??INTVEC 20
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           watchdog_timer          DC40 
+           watchdog_timer          D982 
                interrupt function
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DCD6 - DCD9 (0x4 bytes), align: 1
+  Relative segment, address: DA18 - DA1B (0x4 bytes), align: 1
   Segment part 133.           Intra module refs:   CCR0_ISR::??INTVEC 18
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CCR0_ISR                DCD6 
+           CCR0_ISR                DA18 
                interrupt function
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DCC4 - DCCB (0x8 bytes), align: 1
+  Relative segment, address: DA06 - DA0D (0x8 bytes), align: 1
   Segment part 134.           Intra module refs:   CCR_ISR::??INTVEC 16
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           CCR_ISR                 DCC4 
+           CCR_ISR                 DA06 
                interrupt function
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DCCC - DCD1 (0x6 bytes), align: 1
+  Relative segment, address: DA0E - DA13 (0x6 bytes), align: 1
   Segment part 135.           Intra module refs:   Timer_A1_ISR::??INTVEC 26
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           Timer_A1_ISR            DCCC 
+           Timer_A1_ISR            DA0E 
                interrupt function
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D7CE - D803 (0x36 bytes), align: 1
+  Relative segment, address: D4E4 - D519 (0x36 bytes), align: 1
   Segment part 130.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           Led_Flash               D7CE 
+           Led_Flash               D4E4 
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DCBA - DCC3 (0xa bytes), align: 1
+  Relative segment, address: D9FC - DA05 (0xa bytes), align: 1
   Segment part 138.           Intra module refs:   ADC10_ISR::??INTVEC 10
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ADC10_ISR               DCBA 
+           ADC10_ISR               D9FC 
                interrupt function
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D9CA - D9EB (0x22 bytes), align: 1
+  Relative segment, address: D788 - D7A5 (0x1e bytes), align: 1
   Segment part 127.           Intra module refs:   ADC_Measure_Simple
                                                    SignalAnalysis
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           AverageData             D9CA 
+           AverageData             D788 
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DA2C - DA4B (0x20 bytes), align: 1
+  Relative segment, address: D70C - D72B (0x20 bytes), align: 1
   Segment part 139.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           DeviceDiagnostics       DA2C            SoftUART_RxParse (soft_uart)
+           DeviceDiagnostics       D70C            SoftUART_RxParse (soft_uart)
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D32A - D3B5 (0x8c bytes), align: 1
+  Relative segment, address: D004 - D08F (0x8c bytes), align: 1
   Segment part 128.           Intra module refs:   JP1_Define
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ADC_Measure_Simple      D32A 
+           ADC_Measure_Simple      D004 
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D8E6 - D90D (0x28 bytes), align: 1
+  Relative segment, address: D6E8 - D70B (0x24 bytes), align: 1
   Segment part 129.           Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           JP1_Define              D8E6 
+           JP1_Define              D6E8 
                calls direct
     -------------------------------------------------------------------------
 INTVEC
@@ -1484,58 +1483,58 @@ DATA16_C
            packet_len_table        C02C            main (main)
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D982 - D9A5 (0x24 bytes), align: 1
+  Relative segment, address: D6A0 - D6C3 (0x24 bytes), align: 1
   Segment part 18.            Intra module refs:   SoftUART_TxString
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SoftUART_TxMode_ON      D982 
+           SoftUART_TxMode_ON      D6A0 
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DC72 - DC81 (0x10 bytes), align: 1
+  Relative segment, address: D9B4 - D9C3 (0x10 bytes), align: 1
   Segment part 19.            Intra module refs:   SoftUART_TxString
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SoftUART_TxMode_OFF     DC72 
+           SoftUART_TxMode_OFF     D9B4 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D688 - D6D5 (0x4e bytes), align: 1
+  Relative segment, address: D3DA - D427 (0x4e bytes), align: 1
   Segment part 20.            Intra module refs:   SoftUART_TxString
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SoftUART_SendByte       D688 
+           SoftUART_SendByte       D3DA 
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D9A6 - D9C9 (0x24 bytes), align: 1
+  Relative segment, address: D67C - D69F (0x24 bytes), align: 1
   Segment part 21.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            SoftUART_SetReceiveByte
-                                   D9A6            main (main)
+                                   D67C            main (main)
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DB06 - DB1D (0x18 bytes), align: 1
+  Relative segment, address: D844 - D85B (0x18 bytes), align: 1
   Segment part 22.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            SoftUART_ResetReceiveByte
-                                   DB06            main (main)
+                                   D844            main (main)
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D892 - D8BB (0x2a bytes), align: 1
+  Relative segment, address: D656 - D67B (0x26 bytes), align: 1
   Segment part 23.            Intra module refs:   SoftUART_RxParse
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SoftUART_TxString       D892            main (main)
+           SoftUART_TxString       D656            main (main)
                calls direct
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: D1DA - D299 (0xc0 bytes), align: 1
+  Relative segment, address: CEAA - CF61 (0xb8 bytes), align: 1
   Segment part 25.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           SoftUART_RxParse        D1DA            main (main)
+           SoftUART_RxParse        CEAA            main (main)
                calls direct and indirect
 
     *************************************************************************
@@ -1546,11 +1545,11 @@ DATA16_C
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: DCE6 - DCE7 (0x2 bytes), align: 1
+  Relative segment, address: DA28 - DA29 (0x2 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __DebugBreak            DCE6            __exit (?__exit)
+           __DebugBreak            DA28            __exit (?__exit)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?__exit
@@ -1558,11 +1557,11 @@ DATA16_C
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: DC0A - DC1B (0x12 bytes), align: 1
+  Relative segment, address: D94C - D95D (0x12 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __exit                  DC0A            Segment part 6 (?_exit)
+           __exit                  D94C            Segment part 6 (?_exit)
                                                    _exit (?_exit)
                calls direct
 
@@ -1572,14 +1571,14 @@ DATA16_C
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: DCDA, align: 1
+  Relative segment, address: DA1C, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           _exit                   DCDA            exit (?exit)
+           _exit                   DA1C            exit (?exit)
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DCDA - DCDD (0x4 bytes), align: 1
+  Relative segment, address: DA1C - DA1F (0x4 bytes), align: 1
   Segment part 6.             Intra module refs:   _exit
 
     -------------------------------------------------------------------------
@@ -1699,33 +1698,33 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: DC92 - DC93 (0x2 bytes), align: 1
+  Relative segment, address: D9D4 - D9D5 (0x2 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?Epilogue6              DC92            CalibrationResultAnalise (main)
+           ?Epilogue6              D9D4            CalibrationResultAnalise (main)
                                                    SignalAnalysis (main)
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DC94 - DC95 (0x2 bytes), align: 1
+  Relative segment, address: D9D6 - D9D7 (0x2 bytes), align: 1
   Segment part 3.             Intra module refs:   ?Epilogue6
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?Epilogue5              DC94 
+           ?Epilogue5              D9D6 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DC96 - DC97 (0x2 bytes), align: 1
+  Relative segment, address: D9D8 - D9D9 (0x2 bytes), align: 1
   Segment part 4.             Intra module refs:   ?Epilogue5
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?Epilogue4              DC96            ADC_Measure_Simple (main)
+           ?Epilogue4              D9D8            ADC_Measure_Simple (main)
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DC98 - DC9F (0x8 bytes), align: 1
+  Relative segment, address: D9DA - D9E1 (0x8 bytes), align: 1
   Segment part 5.             Intra module refs:   ?Epilogue4
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?Epilogue3              DC98            FlashWriteArray (flash)
+           ?Epilogue3              D9DA            FlashWriteArray (flash)
                                                    StorageProperty (flash)
                                                    fir_filter (main)
 
@@ -1735,11 +1734,11 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: DCDE - DCE1 (0x4 bytes), align: 1
+  Relative segment, address: DA20 - DA23 (0x4 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           exit                    DCDE            Segment part 18 (?cstart)
+           exit                    DA20            Segment part 18 (?cstart)
                calls direct
 
     -------------------------------------------------------------------------
@@ -1748,12 +1747,12 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: D864 - D891 (0x2e bytes), align: 1
+  Relative segment, address: D5B0 - D5DD (0x2e bytes), align: 1
   Segment part 1.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?Mul16                  D864            getTimerValue (main)
-           ?Mul16to32u             D864            ?Mul16to32s (?Mul16to32s)
+           ?Mul16                  D5B0 
+           ?Mul16to32u             D5B0            ?Mul16to32s (?Mul16to32s)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?Mul16to32s
@@ -1761,11 +1760,11 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: DAEC - DB05 (0x1a bytes), align: 1
+  Relative segment, address: D7C2 - D7DB (0x1a bytes), align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?Mul16to32s             DAEC            fir_filter (main)
+           ?Mul16to32s             D7C2            fir_filter (main)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?DivMod816u
@@ -1773,11 +1772,11 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: DB66 - DB7D (0x18 bytes), align: 1
+  Relative segment, address: D874 - D88B (0x18 bytes), align: 1
   Segment part 1.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?DivMod16u              DB66            ?DivMod16s (?DivMod816s)
+           ?DivMod16u              D874            ?DivMod16s (?DivMod816s)
                                                    AverageData (main)
                                                    SetLevels (main)
                                                    SetLevelsFromCalibr (main)
@@ -1791,12 +1790,11 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: D804 - D833 (0x30 bytes), align: 1
+  Relative segment, address: D550 - D57F (0x30 bytes), align: 1
   Segment part 1.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?DivMod16s              D804            SetLevels (main)
-                                                   SetLevelsFromCalibr (main)
+           ?DivMod16s              D550            SetLevels (main)
                                                    SignalAnalysis (main)
 
     -------------------------------------------------------------------------
@@ -1805,11 +1803,11 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: D760 - D797 (0x38 bytes), align: 1
+  Relative segment, address: D4AC - D4E3 (0x38 bytes), align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?DivMod32u              D760            ?DivMod32s (?DivMod32s)
+           ?DivMod32u              D4AC            ?DivMod32s (?DivMod32s)
                                                    main (main)
 
     -------------------------------------------------------------------------
@@ -1818,11 +1816,11 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: D720 - D75F (0x40 bytes), align: 1
+  Relative segment, address: D46C - D4AB (0x40 bytes), align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?DivMod32s              D720            fir_filter (main)
+           ?DivMod32s              D46C            fir_filter (main)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?ShiftRight32s_8n
@@ -1830,18 +1828,18 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: DC62 - DC65 (0x4 bytes), align: 1
+  Relative segment, address: D9A4 - D9A7 (0x4 bytes), align: 1
   Segment part 5.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?ShiftRight32s_9        DC62            fir_filter (main)
+           ?ShiftRight32s_9        D9A4            fir_filter (main)
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DC66 - DC71 (0xc bytes), align: 1
+  Relative segment, address: D9A8 - D9B3 (0xc bytes), align: 1
   Segment part 6.             Intra module refs:   ?ShiftRight32s_9
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?ShiftRight32s_8        DC66 
+           ?ShiftRight32s_8        D9A8 
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?memcpy
@@ -1849,11 +1847,11 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: DBE6 - DBF7 (0x12 bytes), align: 1
+  Relative segment, address: D928 - D939 (0x12 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           memcpy                  DBE6            FlashEraseSegmentSafe (flash)
+           memcpy                  D928            FlashEraseSegmentSafe (flash)
                                                    FlashWriteArray (flash)
                                                    StorageProperty (flash)
                                                    __data16_memcpy (?memzero)
@@ -1864,18 +1862,18 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: DC52 - DC61 (0x10 bytes), align: 1
+  Relative segment, address: D994 - D9A3 (0x10 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __data16_memzero        DC52            ?cstart_init_zero (?cstart)
+           __data16_memzero        D994            ?cstart_init_zero (?cstart)
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: DCE2 - DCE5 (0x4 bytes), align: 1
+  Relative segment, address: DA24 - DA27 (0x4 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __data16_memcpy         DCE2            ?cstart_init_copy (?cstart)
+           __data16_memcpy         DA24            ?cstart_init_copy (?cstart)
                calls direct
 
 
@@ -1913,7 +1911,7 @@ DATA16_AN                              10F8 - 10F9               2   rel    0
 DATA16_C                               C000 - C033              34   rel    0
 DATA16_ID                              C034 - C036               3   rel    1
 CSTART                                 C038 - C05F              28   rel    1
-<CODE> 1                               C060 - DCE7            1C88   rel    1
+<CODE> 1                               C060 - DA29            19CA   rel    1
 INTVEC                                 FFE0 - FFFB              1C   com    1
 RESET                                  FFFE - FFFF               2   rel    1
 REGVAR_AN            REGISTER          0008 - 0009               2   rel    0
@@ -1924,7 +1922,7 @@ REGVAR_AN            REGISTER          0008 - 0009               2   rel    0
                 *                                      *
                 ****************************************
 
- 7 374 bytes of CODE     memory
+ 6 672 bytes of CODE     memory
    474 bytes of DATA     memory (+ 63 absolute )
      0 bytes of REGISTER memory (+  2 absolute )
     55 bytes of CONST    memory (+ 40 absolute )
