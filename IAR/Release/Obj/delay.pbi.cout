@@ -7,7 +7,7 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\430\inc\clib
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\430\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\430\inc\clib
--D__MSP430F149__=1
+-D__MSP430G2433__=1
 -DNDEBUG=1
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
@@ -214,7 +214,7 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\430\inc\clib
 -D__MULTIPLIER_16__=1
 -D__MULTIPLIER_32__=3
 -D__MULTIPLIER_NONE__=0
--D__MULTIPLIER__=__MULTIPLIER_16__
+-D__MULTIPLIER__=__MULTIPLIER_NONE__
 -D__REGISTER_MODEL_REG16__=0
 -D__REGISTER_MODEL_REG20__=1
 -D__REGISTER_MODEL__=__REGISTER_MODEL_REG16__

@@ -921,11 +921,11 @@
         </option>
         <option>
           <name>AllowExtraOutput</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>GenerateExtraOutput</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>XExtraOutOverride</name>
@@ -1224,7 +1224,7 @@
         </option>
         <option>
           <name>OGChipSelectMenu</name>
-          <state>MSP430F149	MSP430F149</state>
+          <state>MSP430G2433	MSP430G2433</state>
         </option>
         <option>
           <name>GStackHeapOverride</name>
@@ -1429,7 +1429,7 @@
         <option>
           <name>CCAllowList</name>
           <version>1</version>
-          <state>11111</state>
+          <state>10010</state>
         </option>
         <option>
           <name>CCObjUseModuleName</name>
@@ -1545,7 +1545,7 @@
         </option>
         <option>
           <name>CCOptLevel</name>
-          <state>3</state>
+          <state>2</state>
         </option>
         <option>
           <name>CCOptStrategy</name>
@@ -1554,7 +1554,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>3</state>
+          <state>2</state>
         </option>
         <option>
           <name>CInput</name>
@@ -1865,12 +1865,12 @@
         </option>
         <option>
           <name>OutputFile</name>
-          <state>Arton_DL3.txt</state>
+          <state>Arton_DL3.d43</state>
         </option>
         <option>
           <name>OutputFormat</name>
           <version>11</version>
-          <state>33</state>
+          <state>23</state>
         </option>
         <option>
           <name>FormatVariant</name>
@@ -1879,7 +1879,7 @@
         </option>
         <option>
           <name>SecondaryOutputFile</name>
-          <state></state>
+          <state>(None for the selected format)</state>
         </option>
         <option>
           <name>XDefines</name>
@@ -1931,7 +1931,7 @@
         </option>
         <option>
           <name>XclFile</name>
-          <state>lnk0t.xcl</state>
+          <state>$TOOLKIT_DIR$\config\linker\lnk430g2433.xcl</state>
         </option>
         <option>
           <name>XclFileSlave</name>
@@ -2019,15 +2019,15 @@
         </option>
         <option>
           <name>xcProgramEntryLabel</name>
-          <state></state>
+          <state>__program_start</state>
         </option>
         <option>
           <name>DebugInformation</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>RuntimeControl</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>IoEmulation</name>
@@ -2051,7 +2051,7 @@
         </option>
         <option>
           <name>GenerateExtraOutput</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>XExtraOutOverride</name>
@@ -2059,7 +2059,7 @@
         </option>
         <option>
           <name>ExtraOutputFile</name>
-          <state></state>
+          <state>Arton_DL3.a43</state>
         </option>
         <option>
           <name>ExtraOutputFormat</name>
@@ -2224,7 +2224,11 @@
         <debug>0</debug>
         <option>
           <name>CUTest</name>
-          <state>###Uninitialized###</state>
+          <state>-I$TOOLKIT_DIR$\inc</state>
+          <state>-@$TOOLKIT_DIR$\bin\iar.cmd</state>
+          <state>-@$PROJ_DIR$\source.txt</state>
+          <state>-@$PROJ_DIR$\include.txt</state>
+          <state>--preinclude=$PROJ_DIR$\IAR_ULPAdvisor_Defs.h</state>
         </option>
         <option>
           <name>ULPRules</name>
@@ -2237,7 +2241,7 @@
         </option>
         <option>
           <name>OutputFile</name>
-          <state></state>
+          <state>$PROJ_FNAME$.ulp</state>
         </option>
         <option>
           <name>ULPStatus</name>

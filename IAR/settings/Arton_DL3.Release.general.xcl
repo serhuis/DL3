@@ -1,8 +1,8 @@
 "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\430\bin\430proc.dll" 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\430\bin\430sim.dll" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\430\bin\430fet.dll" 
 
-"E:\_ARTON_PROJ\ARTON-DL3\soft\current\IAR\Release\Exe\Arton_DL3.txt" 
+"E:\_ARTON_PROJ\ARTON-DL3\soft\current\IAR\Release\Exe\Arton_DL3.d43" 
 
 --plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\430\bin\430bat.dll" 
 

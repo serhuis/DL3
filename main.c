@@ -63,14 +63,16 @@ __regvar __no_init tFlags 	f 	 @ __R4; 	// Set of state machine flags
 
 //
 u16		timerMain;					// Текущее значение главного таймера
-u16		timerLongPeriod;			// Таймер для режимa HUSH
-u16		mainPeriodCounter;			// Counter of main time period
+//u16		mainPeriodCounter;			// Counter of main time period
 u16 	timerKeyDown;				// Для отслеживания нажатия на кнопку TEST
 u16		adc_data1[ADC_CH_DATA_LEN];	// Array for ADC samples
 
 u8 		DeviceMode; 				// Mode of device
+u8 		prevDeviceMode; 				// Mode of device to be restored from after TEST mode
 
 tFault	DeviceFault = {0};			// Current Faults flags
+tFault	prevDeviceFault = {0};			// previous Faults flags to be restored from after TEST mode
+
 tCalibrFault CalibrFault = {0};		// Calibration Faults flags
 u16 	dark;						// Level of dark signal
 u16 	delta;						// Current level signal
@@ -79,7 +81,7 @@ u16 	delta_last = 0;				// Prev sygnal of delta
 u16		zero_timer = 0;				// Zero level signal timer
 
 u8		fault_chamber_counter = 0;	// Counter of series chamber fault
-u8  	FireMeasCount = 0;			// Количество замеров, превышающих порог Пожара
+//u8  	FireMeasCount = 0;			// Количество замеров, превышающих порог Пожара
 
 // Variables for definition Long Term Drift
 u16  	DriftCounter = 0;
@@ -94,9 +96,6 @@ u8 		Timer50msCounter = 0;		// Counter of 50ms ticks
 
 
 s16		signal_array[SIGNAL_ARRAY_LEN];
-
-//u8		AMP_Off_Timer = 0;
-
 
 volatile u32		led_r;
 volatile u32		led_y;
@@ -115,7 +114,6 @@ const u8 calibr_sequence[CALIBR_STAGES][3] = {
 //			 Amp_No	Gain  Reference
 			{  1,    0,     2 },
 			{  2,    0,     1 },
-//			{  2,    0,     0 },
 			{  2,    1,     1 },
 			{  2,    2,     1 },
 			{  2,    3,     1 },
@@ -358,16 +356,9 @@ void DeviceStart(void) {
 //#pragma optimize=none
 u16 getZeroLevel(void) {
 	u16 ret;
-	//
-//attenuation is more then 6dB (25%)
-//        ret = CONFIG->limit_norm >> 2;
 
 //attenuation is more then 7dB (20%)
 	ret = CONFIG->limit_norm / 5;                   
-
-//attenuation is more then ~7.7dB (17%)
-//	ret = CONFIG->limit_norm / 6;
-
 	return ret;
 }
 
@@ -382,11 +373,8 @@ static u16 getTimerValue(u16 time_sec) {
 	u16 time = 100;
 	
 	if (time_sec > 655) return 0;
-	
 	time *= time_sec;	
-	
 	return time;
-
 }
 
 
@@ -410,7 +398,6 @@ u16 VLO_GetPeriod(void) {
 	//while (fTimer50msOn == 0) {}
 	
 	return TAR;
-	
 }
 
 
@@ -636,9 +623,9 @@ u8 SignalAnalysis(void) {
 	int i;
 	s16	sample;
 	s16 min = 2048, max = -2048;
-	int i_min = 0, i_max = 0;
-	u8 array_hi[EXT_ARRAY_LEN];
-	u8 array_lo[EXT_ARRAY_LEN];
+//	int i_min = 0, i_max = 0;
+	u8 array_hi[EXT_ARRAY_LEN] = {0};
+	u8 array_lo[EXT_ARRAY_LEN] = {0};
 	u8 i_hi = 0;
 	u8 i_lo = 0;
 	s8 T = 0;
@@ -686,11 +673,11 @@ u8 SignalAnalysis(void) {
 			
 		if (sample < min) {
 			min = sample;
-			i_min = i;
+//			i_min = i;
 		}
 		if (sample > max) {
 			max = sample;
-			i_max = i;
+//			i_max = i;
 		}
 	}
 
@@ -724,12 +711,7 @@ u8 SignalAnalysis(void) {
 		}
 	}
 	//
-	/* ////
-	i_hi++;
-	d1 = signal_array[array_hi[i_hi++]] - signal_array[array_lo[i_lo++]];
-	d2 = signal_array[array_hi[i_hi]] - signal_array[array_lo[i_lo]];
-	delta = (d1 + d2) / 2;
-	*/
+
 	
 	//i_lo++;
 	d1 = signal_array[array_hi[i_hi++]] - signal_array[array_lo[i_lo]];
@@ -739,6 +721,8 @@ u8 SignalAnalysis(void) {
 
 	delta = (d1 + d2 + d3 + d4) / 4;
 	
+	PWM_period = delta;
+	
 	if (delta > 4000) {
 		delta = 0;	//CONFIG->limit_norm;
 	}
@@ -747,13 +731,8 @@ u8 SignalAnalysis(void) {
 		delta = 0;
 	}
 	//
-//DL3
-        PWM_period = delta;
-//end DL3
 	return ret;
 }
-
-
 
 //--------------------------------------------------------------------------------
 // Function		: void Timer_A0_SetDelay(u16 period)
@@ -790,49 +769,43 @@ void Timer_A0_StartPWM(u16 PulseWidth){
   
   if ((PulseWidth == 0) || (f.bTimerA_On == 1) || (f.bTimerA_Repeat ==1))return;
 
-	
 	_BIC_SR(GIE);    					// Запрещаем прерывания
 
-        P1SEL |= TEST_OUT_BIT;
+	P1SEL |= TEST_OUT_BIT;
         
-        if (BCSCTL1 == CALBC1_8MHZ)
-          TACTL = TASSEL_2 + MC_1 + ID_3;      // SMCLK, up mode, div = 8
-        else
-          if(BCSCTL1 == CALBC1_1MHZ)
-            TACTL = TASSEL_2 + MC_1;            // SMCLK, up mode, div = 1
-
-	TACCTL1 = OUTMOD_7;
+	if (BCSCTL1 == CALBC1_8MHZ)
+    TACTL = TASSEL_2 + MC_1 + ID_3;      // SMCLK, up mode, div = 8
+  else
+    if(BCSCTL1 == CALBC1_1MHZ)
+  
+  TACTL = TASSEL_2 + MC_1;            // SMCLK, up mode, div = 1
+  TACCTL1 = OUTMOD_7;
 //        CCR0 	 = PWM_PWRIOD - 1;
 //        CCR1 	 = PulseWidth - 1;      		// Period T(us) * F(MHz)
-          CCR1 	 = CCR0/tmp;      		// Period T(us) * F(MHz)
+  CCR1 	 = CCR0/tmp;      		// Period T(us) * F(MHz)
 
-        
-        
-        
-        //	TACCTL0 = CCIE;					// Разрешаем прерывание таймера по достижению значения TACCCR0.
-//        TACCTL1 = CCIE;				// Разрешаем прерывание таймера по достижению значения TACCCR1.
-          //
-        _BIS_SR(GIE);    				// Разрешаем прерывания
+  _BIS_SR(GIE);    				// Разрешаем прерывания
 }
+
 void Timer_A0_StopPWM(void){	
 	_BIC_SR(GIE);    				// Запрещаем прерывания
 	
-        P1SEL &= ~TEST_OUT_BIT;
-        TEST_OUT_CLR();
+	P1SEL &= ~TEST_OUT_BIT;
+	TEST_OUT_CLR();
         
-        CCR0 	 = 0;
+	CCR0 	 = 0;
+	fPWMEnabled = 0;
 
-        fPWMEnabled = 0;
-
-        _BIS_SR(GIE);    					// Разрешаем прерывания
+	_BIS_SR(GIE);    					// Разрешаем прерывания
 }
+
 void Timer_A0_SetPWMPulse(u16 Pulse){	
   
 	if (Pulse == 0) return;
 	
 	_BIC_SR(GIE);    					// Запрещаем прерывания
-        CCR0 	 = PWM_PWRIOD - 1;
-        CCR1 	 = Pulse - 1;      		// Period T(us) * F(MHz)
+	CCR0 	 = PWM_PWRIOD - 1;
+	CCR1 	 = Pulse - 1;      		// Period T(us) * F(MHz)
 	//
 	_BIS_SR(GIE);    					// Разрешаем прерывания
 }
@@ -941,25 +914,19 @@ void FaultSignalManager(void) {
 	if (DeviceFault.byte) {
 		DeviceMode = MODE_FAULT;
 		led_r = 0;
-/*		
-		if (DeviceFault.fStrobNone) {
-			// Electrical sync is fault
-			led_y = LED_PULSE_2;
-		}else
-*/
-                  if (DeviceFault.fSignal_Low) {
+
+		if (DeviceFault.fSignal_Low) {
 			// Level signal is very low
 			led_y = LED_PULSE_1;
 		}else	
 		if (DeviceFault.fFaultDrift) {
 			// Long Term Drift fault
-			led_y = LED_PULSE_3;
+		led_y = LED_PULSE_3;
 		}else	
 		if (DeviceFault.fSignal_Hi) {
-			// Level signal is very big
-			led_y = LED_PULSE_5;
+		// Level signal is very big
+		led_y = LED_PULSE_5;
 		}
-		
 	}
 	
 	if (CalibrFault.byte) {
@@ -975,13 +942,6 @@ void FaultSignalManager(void) {
 			led_y = LED_PULSE_5;
 		}
 
-//DL3		TO BE DONE...
-//		BREAK_ENABLE();				// Disable of BI
-
-		//FIRE_CLR();					// Disable Fire current consumption
-//                NFAULT_CLR();
-//DL3
-                  //
 		fault_timer = 0;
 		fault_phase = 0;
 	}
@@ -992,20 +952,10 @@ void FaultSignalManager(void) {
 			
 			led_r = 0;
 			led_y = 0;
-			
 			fault_timer = 0;
 			fault_phase = 0;
-/*DL3			
-			strob_pulse_timer = 0;
-
-			BREAK_DISABLE();		// Enable of BI
-
-			FIRE_CLR();				// Disable Fire current consumption
-*/
-//DL3   
-                        NFAULT_SET();
-//                        fPWMEnabled = 0;
-//DL3   	
+ 
+			NFAULT_SET();
 
 		}
 	}
@@ -1025,16 +975,11 @@ void FaultSignalManager(void) {
 		}
 		//
 		if (fault_phase == 1) {
-//DL3			BREAK_ENABLE();			// Disable of BI
-                        NFAULT_CLR();
+			NFAULT_CLR();
 		}else{
-//DL3			BREAK_DISABLE();		// Enable of BI
-                        NFAULT_SET();
+			NFAULT_SET();
 		}
-
 	}
-        
-
 }
 
 
@@ -1075,11 +1020,9 @@ void LedTestValueManager(void) {
 // Description	: Initialization interrupts from RX Sniff CC112x (GPIO2)
 //---------------------------------------------------------------------------------
 void ADC_SetParam(void) {
-	
 	gain = CONFIG->Gain & 0x0F;
 	reference = CONFIG->Gain >> 4;
 	amp_no = CONFIG->AMP_No;
-	
 }
 
 //---------------------------------------------------------------------------------
@@ -1186,12 +1129,10 @@ void CalibrationResultAnalise(void) {
 		StoragePropertyWord(eeCONFIG_REG_OFFSET, cfg_reg.word);
 		//
 		DeviceMode = MODE_NORM;
-		//...
+
 //DL3   
-		//FIRE_CLR();				// Disable Fire current consumption
-                NFAULT_SET();
-//                fPWMEnabled = 0;
-//DL3   	
+		NFAULT_SET();
+
 
 		//
 		AMP_SetGain(gain);
@@ -1207,9 +1148,7 @@ void CalibrationResultAnalise(void) {
 	}
 	//
 //DL3   
-		//FIRE_CLR();				// Disable Fire current consumption
-                NFAULT_SET();
-//DL3 
+		NFAULT_SET();
 	StoragePropertyByte(eeCALIBR_FAULT_OFFSET, CalibrFault.byte);
 }
 	
@@ -1311,38 +1250,36 @@ void main(void) {
 // TimerA0 Event		
 //-------------------------------------------------------------------------------
           
-              if (fTimerA_On) {				// Закончен период ожидания измерительных импульсов
-		fTimerA_On = 0;
+		if (fTimerA_On) {				// Закончен период ожидания измерительных импульсов
+			fTimerA_On = 0;
                   
-                  BCSCTL1 = CALBC1_16MHZ; 	// Используем частоту 16 MГц
-                  DCOCTL =  CALDCO_16MHZ;
+      BCSCTL1 = CALBC1_16MHZ; 	// Используем частоту 16 MГц
+      DCOCTL =  CALDCO_16MHZ;
                           //
-                  TA1CCR0  = 0xFFFF - 1;   	// ~ Compensation of frequence increase
+      TA1CCR0  = 0xFFFF - 1;   	// ~ Compensation of frequence increase
                           //
-                  Timer_A0_Off();				
+      Timer_A0_Off();				
                           
-                  ADC_MeasureStart();
+      ADC_MeasureStart();
                           
-                  fADCStarted =1;
+      fADCStarted =1;
                           
 
-                  timerA1_blank = 0;
+      timerA1_blank = 0;
   //Added for DL3
-                  if(fADCStarted == 1){
-                    fADCStarted = 0;
-                    while(irpulses){
-                      IRED_SET();
-//                      DelayUs(670);
-                      DelayUs(1000);
-                      IRED_CLR();
-//                      DelayUs(1330);
-                      DelayUs(1000);
-                      irpulses--;
-                    }
-                    irpulses = 3;
-                  }
-//end Added for DL3
-              }
+			if(1 == fADCStarted){
+      	fADCStarted = 0;
+				while(irpulses){
+					IRED_SET();
+					DelayUs(1000);
+					IRED_CLR();
+					DelayUs(1000);
+					irpulses--;
+				}
+				irpulses = 3;
+			}
+
+		}
 
 //-------------------------------------------------------------------------------
 // fTimer50msOn Event				
@@ -1359,22 +1296,21 @@ void main(void) {
 		if (fTimerA1_On) {				// Получен следующий интервал timer
 			fTimerA1_On = 0;
 			
-			if (start_timer) {
-                          start_timer--;
-                          if (start_timer == 0) {
-                            CalibrFault.byte = CONFIG->calibr_fault;
-                            flash_period_timer = 500;	// Need flash after 5 sec
-                            strob_pulse_timer = 0;
-                          }
+			if(start_timer){
+        start_timer--;
+        if (start_timer == 0) {
+        CalibrFault.byte = CONFIG->calibr_fault;
+        flash_period_timer = 500;	// Need flash after 5 sec
+        strob_pulse_timer = 0;
+				}
 			}
 			
 			if (timerKeyDown) {
 				timerKeyDown++;
 				if (timerKeyDown > 200 ) {			// > 2 sec - Start Calibration
+
 					// CALIBRATION Start
-					//
-//debug DL3
-                                      JP1_Define();			// Define JP1 on BVS state
+					JP1_Define();			// Define JP1 on BVS state
 					if (jp1_state == 0) {
 						// JP1 is Open 
 						cfg_reg.fDrift = 1;
@@ -1388,9 +1324,8 @@ void main(void) {
 					fPWMEnabled = 1;
 
 					// Calibration from most amp to small
-//DL3					FIRE_SET();				// Set Fire output key
-                                        NFAULT_SET();
-//DL3   	
+//DL3			
+					NFAULT_SET();
 
 					DeviceFault.fStrobNone = 0;
 					strob_pulse_timer = 0;
@@ -1432,9 +1367,6 @@ void main(void) {
 						if (fault_sequence[fault_chain_ind] == 0) {
 							fault_chain_ind = 0;
 							DeviceMode = MODE_NORM;
-//added for DL3
-//                                                        fPWMEnabled = 0;
-//end added for DL3
 						}else{
 							DeviceMode = fault_sequence[fault_chain_ind++];
 							fault_chain_timer = getTimerValue(fault_sequence[fault_chain_ind++]);
@@ -1451,15 +1383,12 @@ void main(void) {
 									DeviceFault.fSignal_Low = 0;
 									break;
 								case MODE_FAULT:
-//									BREAK_ENABLE();			// Disable of transmitter
-                                                                        NFAULT_CLR();
-                                                                        break;
+										NFAULT_CLR();
+                    break;
 								case MODE_NORM:
-                                                                        zero_timer = 0;
-									DeviceFault.fSignal_Low = 0;
-//DL3									BREAK_DISABLE();		// Enable of transmitter
-                                                                        NFAULT_SET();
-//end DL3
+										zero_timer = 0;
+										DeviceFault.fSignal_Low = 0;
+										NFAULT_SET();
 							}
 						}
 					}
@@ -1473,11 +1402,8 @@ void main(void) {
 						DeviceMode = MODE_NORM;
 						RED_CLR();
 						YEL_CLR();
-//DL3   
-                                                //FIRE_CLR();
-                                                NFAULT_SET();
-//                                                fPWMEnabled = 0;
-//DL3 
+						
+						NFAULT_SET();
 					}
 				}
 			}
@@ -1623,18 +1549,19 @@ void main(void) {
 
 			}
 			//
+			if((DeviceMode == MODE_TEST) ||(DeviceMode == MODE_FAULT)){
+      	fPWMEnabled = 1;  
+        Timer_A0_StartPWM(PWM_period);
+      }
+/*
+			else{
+      	fPWMEnabled = 0;  
+			}
+*/			
 			if (start_timer || CalibrFault.byte || DeviceFault.fFaultDrift) {
 				goto label_light;
-			}
-
-                       if((DeviceMode == MODE_TEST) ||(DeviceMode == MODE_FAULT)){
-                           fPWMEnabled = 1;  
-                           Timer_A0_StartPWM(PWM_period);
-                        }
-                        else{
-                           fPWMEnabled = 0;  
-                        }
-                        
+			}         
+			
 			quality = SignalAnalysis();
 			BCSCTL1 = CALBC1_1MHZ; 					// Используем частоту 1 MГц
 			DCOCTL =  CALDCO_1MHZ;
@@ -1644,7 +1571,7 @@ void main(void) {
 			//
 			if (DeviceMode == MODE_CALIBR) {
 				//
-				// -------- CALIBRATION ---------
+				// -------- КАЛИБРОВКА ---------
 				//
 				n_counter++;
 				summa += delta;
@@ -1679,7 +1606,7 @@ void main(void) {
 				}
 			}else
 			
-			// -------- NORM behavior -------------
+			// Дежурный режим
 			//
 			if (quality == 2) {	
 				// Very high signal
@@ -1722,8 +1649,7 @@ void main(void) {
 						DeviceFault.fSignal_Low = 1;
 						zero_timer = 0;
 						//
-//DL3						BREAK_ENABLE();			// Disable of transmitter
-                                                NFAULT_CLR();
+						NFAULT_CLR();
 
 						//
 					}
@@ -1899,10 +1825,9 @@ label_light:
 			
 			_BIC_SR(GIE);    			// Запрещаем прерывания
 
-  //DL3                        Timer_A0_SetDelay(2250);
-                        Timer_A0_StopPWM();
-                        Timer_A0_SetDelay(1500);
-
+//DL3                        Timer_A0_SetDelay(2250);
+			Timer_A0_StopPWM();
+      Timer_A0_SetDelay(1500);
 //                        
 			_BIS_SR(GIE);    			// Разрешаем прерывания
 			//
@@ -1937,12 +1862,15 @@ label_light:
 
 			if ((timerKeyDown > 4) && (timerKeyDown < 150))  {	// < 1.5 sec
 				// The short pressure on the button
-				if ((DeviceMode == MODE_NORM) || (DeviceMode == MODE_PREFIRE) || (DeviceMode == MODE_PREPREFIRE)) {
+				if ((DeviceMode == MODE_NORM) || (DeviceMode == MODE_PREFIRE) || (DeviceMode == MODE_PREPREFIRE)|| (DeviceMode == MODE_FAULT)) {
+//DL3
+					prevDeviceMode = DeviceMode;			//save current mode to be restored after test mode
 					DeviceMode = MODE_TEST;
+					prevDeviceFault = DeviceFault;
 					DeviceFault.byte = 0;	// Reset all faults
 
 //DL3                                   FIRE_SET();				// Set fire mode current consumption
-                                        NFAULT_SET();
+					NFAULT_SET();
 //DL3 
 					RED_CLR();
 					YEL_SET();
@@ -1955,17 +1883,18 @@ label_light:
 				}else
 				//	
 				if (DeviceMode == MODE_TEST) {
+					DeviceMode = prevDeviceMode;
+					DeviceFault = prevDeviceFault;
+/*DL3						
 					DeviceMode = MODE_NORM;
-                                        
-//                                        fPWMEnabled = 0;
-					
-                                        DeviceFault.byte = 0;	// Reset all faults
-					//led_timer = 0;
+					DeviceFault.byte = 0;	// Reset all faults
+
+*/
+					led_timer = 0;
 					RED_CLR();
 					YEL_CLR();
 //
-//					FIRE_CLR();
-                                        NFAULT_SET();
+					NFAULT_SET();
 //DL3 
 				}else
 				//
