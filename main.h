@@ -32,7 +32,7 @@
 	 
 // Options for preprocessor
 #define SYS_FAULT_ENABLE		1	/* 1 - detect System Fault, 0 - no detect System Fault */
-#define CRC_ENABLE				1	/* 1 - control memory enable, 0 - control memory disable */
+#define CRC_ENABLE					1	/* 1 - control memory enable, 0 - control memory disable */
 	
 #define SYS_TICK_TIME			10000	/* in us */
 	 

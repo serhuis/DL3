@@ -40,9 +40,10 @@ __no_init 	unsigned char SegC[64] 			@FLASH_SEG_ADDR;
 
 
 // Area in the flash memory for placing of configuration data
+
 const tEE_CONFIG 	ee_config @ FLASH_SEG_ADDR = {
 	// Common section
-		.version = 101,					// v1.01
+		.version = 100,					// v1.01
 		.dev_type = 6,                                  //Arton-DL3
                             //4,					// Arton-DL1
 		.serial = {0xFF, 0xFF, 0xFF},
@@ -59,11 +60,13 @@ const tEE_CONFIG 	ee_config @ FLASH_SEG_ADDR = {
 		.calibr_fault = 0,
 		.Gain = 1,
 		.AMP_No = 2,
+		.dev_name = "DL3-BPI",
 		//	
-		.CS = 0xFFFF,
+		.CS = 0x5a5a,
  };
 
- 
+//const u32 ee_config[] @ FLASH_SEG_ADDR  = {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF};
+
 u8 * SegCBackup = (u8*)&signal_array[0];			// Buffer for backup configuration data
 
 

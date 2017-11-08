@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V6.40.1.950/W32 for MSP430           30/May/2017  15:41:05
+# IAR C/C++ Compiler V6.40.1.950/W32 for MSP430           08/Nov/2017  15:50:27
 # Copyright 1996-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for Texas Instruments MSP430
 #
@@ -68,247 +68,250 @@ E:\_ARTON_PROJ\ARTON-DL3\soft\current\flash.c
      40          
      41          
      42          // Area in the flash memory for placing of configuration data
-     43          const tEE_CONFIG 	ee_config @ FLASH_SEG_ADDR = {
-     44          	// Common section
-     45          		.version = 101,					// v1.01
-     46          		.dev_type = 6,                                  //Arton-DL3
-     47                                      //4,					// Arton-DL1
-     48          		.serial = {0xFF, 0xFF, 0xFF},
-     49          		.date_prod = 0x0810,
-     50          	// Specific section
-     51          		.config_reg = {.fDrift = 1},
-     52          		.limit_norm = 400,
-     53          		.limit_prefire = 320,
-     54          		.limit_fire = 280,
-     55          		.fire_hister = 30,
-     56          		.limit_drift = 0xFFFF,
-     57          		.limit_low = 20,	
-     58          		.limit_hi = 600,
-     59          		.calibr_fault = 0,
-     60          		.Gain = 1,
-     61          		.AMP_No = 2,
-     62          		//	
-     63          		.CS = 0xFFFF,
-     64           };
-     65          
-     66           
-     67          u8 * SegCBackup = (u8*)&signal_array[0];			// Buffer for backup configuration data
-     68          
+     43          
+     44          const tEE_CONFIG 	ee_config @ FLASH_SEG_ADDR = {
+     45          	// Common section
+     46          		.version = 100,					// v1.01
+     47          		.dev_type = 6,                                  //Arton-DL3
+     48                                      //4,					// Arton-DL1
+     49          		.serial = {0xFF, 0xFF, 0xFF},
+     50          		.date_prod = 0x0810,
+     51          	// Specific section
+     52          		.config_reg = {.fDrift = 1},
+     53          		.limit_norm = 400,
+     54          		.limit_prefire = 320,
+     55          		.limit_fire = 280,
+     56          		.fire_hister = 30,
+     57          		.limit_drift = 0xFFFF,
+     58          		.limit_low = 20,	
+     59          		.limit_hi = 600,
+     60          		.calibr_fault = 0,
+     61          		.Gain = 1,
+     62          		.AMP_No = 2,
+     63          		.dev_name = "DL3-BPI",
+     64          		//	
+     65          		.CS = 0x5a5a,
+     66           };
+     67          
+     68          //const u32 ee_config[] @ FLASH_SEG_ADDR  = {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF};
      69          
-     70          /*********************************************************************************/
-     71          /*                                FUNCTIONS                                      */
-     72          /*********************************************************************************/
-     73          
-     74          
-     75          //-------------------------------------------------------------------------------------------------
-     76          // Function		: void FlashInit(void)
-     77          // Parameters	: None
-     78          // Return		: None
-     79          // Description	: Initialisation Flash for write operation
-     80          //-------------------------------------------------------------------------------------------------
-     81          void FlashInit(void) {
-     82          	_DINT(); 
-     83          	while(1) if(!(BUSY&FCTL3))break;
-     84          	FCTL2 = FWKEY | FSSEL_2 | FN1;       	// SMCLK/3
-     85          }
-     86          
-     87          
-     88          
-     89          //-------------------------------------------------------------------------------------------------
-     90          // Function		: void FlashDeInit(void)
-     91          // Parameters	: None
-     92          // Return		: None
-     93          // Description	: DeInitialisation Flash for write operation
-     94          //-------------------------------------------------------------------------------------------------
-     95          void FlashDeInit(void) {
-     96          	_EINT();
-     97          }
-     98          
-     99          
-    100          //-------------------------------------------------------------------------------------------------
-    101          // Function		: void FlashEraseSegment(unsigned char *SegPtr)
-    102          // Parameters	: SegPtr - pointer on segment
-    103          // Return		: None
-    104          // Description	: Erase of flash memory segment
-    105          //-------------------------------------------------------------------------------------------------
-    106          void FlashEraseSegment(unsigned char *SegPtr) {
-    107          	_DINT();
-    108          	FCTL3 = FWKEY;					// Lock   = 0 
-    109          	while(1) if(!(BUSY&FCTL3))break;
-    110          	FCTL1 = FWKEY | ERASE;			// ERASE  = 1 
-    111          	SegPtr[0] = 0;                       
+     70          u8 * SegCBackup = (u8*)&signal_array[0];			// Buffer for backup configuration data
+     71          
+     72          
+     73          /*********************************************************************************/
+     74          /*                                FUNCTIONS                                      */
+     75          /*********************************************************************************/
+     76          
+     77          
+     78          //-------------------------------------------------------------------------------------------------
+     79          // Function		: void FlashInit(void)
+     80          // Parameters	: None
+     81          // Return		: None
+     82          // Description	: Initialisation Flash for write operation
+     83          //-------------------------------------------------------------------------------------------------
+     84          void FlashInit(void) {
+     85          	_DINT(); 
+     86          	while(1) if(!(BUSY&FCTL3))break;
+     87          	FCTL2 = FWKEY | FSSEL_2 | FN1;       	// SMCLK/3
+     88          }
+     89          
+     90          
+     91          
+     92          //-------------------------------------------------------------------------------------------------
+     93          // Function		: void FlashDeInit(void)
+     94          // Parameters	: None
+     95          // Return		: None
+     96          // Description	: DeInitialisation Flash for write operation
+     97          //-------------------------------------------------------------------------------------------------
+     98          void FlashDeInit(void) {
+     99          	_EINT();
+    100          }
+    101          
+    102          
+    103          //-------------------------------------------------------------------------------------------------
+    104          // Function		: void FlashEraseSegment(unsigned char *SegPtr)
+    105          // Parameters	: SegPtr - pointer on segment
+    106          // Return		: None
+    107          // Description	: Erase of flash memory segment
+    108          //-------------------------------------------------------------------------------------------------
+    109          void FlashEraseSegment(unsigned char *SegPtr) {
+    110          	_DINT();
+    111          	FCTL3 = FWKEY;					// Lock   = 0 
     112          	while(1) if(!(BUSY&FCTL3))break;
-    113          	FCTL1 = FWKEY;					// ERASE  = 0 
-    114          	FCTL3 = FWKEY | LOCK;			// Lock   = 1 
-    115          	_EINT();
-    116          }
-    117          
-    118          
-    119          
-    120          //-------------------------------------------------------------------------------------------------
-    121          // Function		: void FlashWriteByte(unsigned char *DataPtr, unsigned char byte)
-    122          // Parameters	: DataPtr - pointer on flash memory, byte - byte of data
-    123          // Return		: None
-    124          // Description	: Write byte into flash memory
-    125          //-------------------------------------------------------------------------------------------------
-    126          void FlashWriteByte(unsigned char *DataPtr, unsigned char byte) {
-    127              _DINT();
-    128          	do {
-    129          		FCTL3 = FWKEY;			// Lock = 0 
-    130          		while(1) if(!(BUSY&FCTL3))break;
-    131          		FCTL1 = FWKEY|WRT;		// WRT  = 1 
-    132          		DataPtr[0] = byte;			// Program Flash byte 
+    113          	FCTL1 = FWKEY | ERASE;			// ERASE  = 1 
+    114          	SegPtr[0] = 0;                       
+    115          	while(1) if(!(BUSY&FCTL3))break;
+    116          	FCTL1 = FWKEY;					// ERASE  = 0 
+    117          	FCTL3 = FWKEY | LOCK;			// Lock   = 1 
+    118          	_EINT();
+    119          }
+    120          
+    121          
+    122          
+    123          //-------------------------------------------------------------------------------------------------
+    124          // Function		: void FlashWriteByte(unsigned char *DataPtr, unsigned char byte)
+    125          // Parameters	: DataPtr - pointer on flash memory, byte - byte of data
+    126          // Return		: None
+    127          // Description	: Write byte into flash memory
+    128          //-------------------------------------------------------------------------------------------------
+    129          void FlashWriteByte(unsigned char *DataPtr, unsigned char byte) {
+    130              _DINT();
+    131          	do {
+    132          		FCTL3 = FWKEY;			// Lock = 0 
     133          		while(1) if(!(BUSY&FCTL3))break;
-    134          		FCTL1 = FWKEY;			// WRT  = 0 
-    135          		FCTL3 = FWKEY|LOCK;		// Lock = 1 
-    136              }
-    137              while(DataPtr[0] != byte);
-    138          	_EINT();
-    139          }
-    140          
-    141          
-    142          //-------------------------------------------------------------------------------------------------
-    143          // Function		: void FlashWriteWord(unsigned char *DataPtr, unsigned short word)
-    144          // Parameters	: DataPtr - pointer on flash memory, word - word of data
-    145          // Return		: None
-    146          // Description	: Write word (2 byte) into flash memory
-    147          //-------------------------------------------------------------------------------------------------
-    148          void FlashWriteWord(unsigned short *DataPtr, unsigned short word) {
-    149             _DINT();
-    150          	do {
-    151          		FCTL3 = FWKEY;			// Lock = 0 
-    152          		while(1) if(!(BUSY&FCTL3))break;
-    153          		FCTL1 = FWKEY|WRT;		// WRT  = 1 
-    154          		*DataPtr = word;			// Program Flash byte 
+    134          		FCTL1 = FWKEY|WRT;		// WRT  = 1 
+    135          		DataPtr[0] = byte;			// Program Flash byte 
+    136          		while(1) if(!(BUSY&FCTL3))break;
+    137          		FCTL1 = FWKEY;			// WRT  = 0 
+    138          		FCTL3 = FWKEY|LOCK;		// Lock = 1 
+    139              }
+    140              while(DataPtr[0] != byte);
+    141          	_EINT();
+    142          }
+    143          
+    144          
+    145          //-------------------------------------------------------------------------------------------------
+    146          // Function		: void FlashWriteWord(unsigned char *DataPtr, unsigned short word)
+    147          // Parameters	: DataPtr - pointer on flash memory, word - word of data
+    148          // Return		: None
+    149          // Description	: Write word (2 byte) into flash memory
+    150          //-------------------------------------------------------------------------------------------------
+    151          void FlashWriteWord(unsigned short *DataPtr, unsigned short word) {
+    152             _DINT();
+    153          	do {
+    154          		FCTL3 = FWKEY;			// Lock = 0 
     155          		while(1) if(!(BUSY&FCTL3))break;
-    156          		FCTL1 = FWKEY;			// WRT  = 0 
-    157          		FCTL3 = FWKEY|LOCK;		// Lock = 1 
-    158              }
-    159              while(*DataPtr != word);
-    160          	_EINT();
-    161          }
-    162          
-    163          
-    164          
-    165          //-------------------------------------------------------------------------------------------------
-    166          // Function		: void FlashWriteArray(unsigned char * DestPtr, unsigned char *SrcPtr, int len)
-    167          // Parameters	: DestPtr - pointer to flash memory, SrcPtr - pointer to data for write, len - length of data
-    168          // Return		: None
-    169          // Description	: Write array into flash memory
-    170          //-------------------------------------------------------------------------------------------------
-    171          void FlashWriteArray(unsigned char * DestPtr, unsigned char *SrcPtr, int len) {
-    172              _DINT();
-    173          	do {
-    174          		FCTL3 = FWKEY;			// Lock = 0 
-    175          		while(1) if(!(BUSY&FCTL3))break;
-    176          		FCTL1 = FWKEY | WRT;		// WRT  = 1 
-    177          		memcpy(DestPtr, SrcPtr, len);
+    156          		FCTL1 = FWKEY|WRT;		// WRT  = 1 
+    157          		*DataPtr = word;			// Program Flash byte 
+    158          		while(1) if(!(BUSY&FCTL3))break;
+    159          		FCTL1 = FWKEY;			// WRT  = 0 
+    160          		FCTL3 = FWKEY|LOCK;		// Lock = 1 
+    161              }
+    162              while(*DataPtr != word);
+    163          	_EINT();
+    164          }
+    165          
+    166          
+    167          
+    168          //-------------------------------------------------------------------------------------------------
+    169          // Function		: void FlashWriteArray(unsigned char * DestPtr, unsigned char *SrcPtr, int len)
+    170          // Parameters	: DestPtr - pointer to flash memory, SrcPtr - pointer to data for write, len - length of data
+    171          // Return		: None
+    172          // Description	: Write array into flash memory
+    173          //-------------------------------------------------------------------------------------------------
+    174          void FlashWriteArray(unsigned char * DestPtr, unsigned char *SrcPtr, int len) {
+    175              _DINT();
+    176          	do {
+    177          		FCTL3 = FWKEY;			// Lock = 0 
     178          		while(1) if(!(BUSY&FCTL3))break;
-    179          		FCTL1 = FWKEY;			// WRT  = 0 
-    180          		FCTL3 = FWKEY | LOCK;		// Lock = 1 
-    181              }
-    182              while(DestPtr[len-1] != SrcPtr[len-1]);
-    183          	_EINT();
-    184          }
-    185          
-    186          
-    187          //-------------------------------------------------------------------------------------------------
-    188          // Function		: void FlashEraseSegmentSafe(int safe_bytes)
-    189          // Parameters	: safe_bytes - number of bytes saved over backup
-    190          // Return		: None
-    191          // Description	: Erase one segment of flash with saving content into backup
-    192          //-------------------------------------------------------------------------------------------------
-    193          void FlashEraseSegmentSafe(int safe_bytes) {
-    194          	memcpy(SegCBackup, (void *)FLASH_SEG_ADDR, safe_bytes);
-    195          	FlashEraseSegment((void *)FLASH_SEG_ADDR);
-    196          }
-    197          
-    198          //-------------------------------------------------------------------------------------------------
-    199          // Function		: void FlashEraseSegmentSafe(int safe_bytes)
-    200          // Parameters	: restore_bytes - number of bytes restored from backup
-    201          // Return		: None
-    202          // Description	: Write one segment of flash with restoring content from backup
-    203          //-------------------------------------------------------------------------------------------------
-    204          void FlashWriteSegmentSafe(int restore_bytes) {
-    205          	FlashWriteArray((unsigned char *)FLASH_SEG_ADDR, SegCBackup, restore_bytes);
-    206          }
-    207          
-    208          
-    209          
-    210          //-------------------------------------------------------------------------------------------------
-    211          // Function		: void StorageProperty(u16 seg_offset, unsigned char * data, u8 len)
-    212          // Parameters	: seg_offset - offset from begin of datasegment, data - ptr to data array, len - length of data
-    213          // Return		: None
-    214          // Description	: Write array property into flash
-    215          //-------------------------------------------------------------------------------------------------
-    216          void StorageProperty(u16 seg_offset, unsigned char * data, u8 len) {		 
-    217          	FlashInit();
-    218          	//
-    219          	FlashEraseSegmentSafe(FLASH_LEN);		// Кол-во сохраненных байт
-    220          	memcpy(((u8 *)(&SegCBackup[0] + seg_offset)), data, len);
-    221          	FlashWriteSegmentSafe(FLASH_LEN);
-    222          	//
-    223          	FlashDeInit();
-    224          }
-    225          
-    226          
-    227          //-------------------------------------------------------------------------------------------------
-    228          // Function		: void StoragePropertyByte(u16 seg_offset, u8 byte)
-    229          // Parameters	: seg_offset - offset from begin of datasegment, byte - byte for write to flash
-    230          // Return		: None
-    231          // Description	: Write word property into flash
-    232          //-------------------------------------------------------------------------------------------------
-    233          void StoragePropertyByte(u16 seg_offset, u8 byte) {
-    234          	u8	data = byte;
-    235          	StorageProperty(seg_offset, (u8 *)&data, 1);
-    236          }
-    237          
-    238          
-    239          
-    240          //-------------------------------------------------------------------------------------------------
-    241          // Function		: void StoragePropertyWord(u16 seg_offset, u16 word)
-    242          // Parameters	: seg_offset - offset from begin of datasegment, word - word for write to flash
-    243          // Return		: None
-    244          // Description	: Write word property into flash
-    245          //-------------------------------------------------------------------------------------------------
-    246          void StoragePropertyWord(u16 seg_offset, u16 word) {
-    247          	u16	data = word;
-    248          	StorageProperty(seg_offset, (u8 *)&data, 2);
-    249          }
-    250          
-    251          
-    252          
-    253          //-------------------------------------------------------------------------------------------------
-    254          // Function		: u16 GetPropertiesCRC(void)
-    255          // Parameters	: None
-    256          // Return		: Value of flash data checksum
-    257          // Description	: Calculate checksum of the flash data 
-    258          //-------------------------------------------------------------------------------------------------
-    259          u16 GetPropertiesCS(void) {
-    260          	u16		summa = 0;
-    261          	u8		i = PROPERTIES_LEN / 2;
-    262          	u16 * 	ptr = (u16 *) &ee_config;
-    263          	while (i--) {
-    264          		summa ^= *ptr++;
-    265          	}
-    266          	//
-    267          	return summa;
-    268          }
-    269          
-    270          
-    271          
-    272          //-------------------------------------------------------------------------------------------------
-    273          // Function		: void SavePropertyCRC(void)
-    274          // Parameters	: None
-    275          // Return		: None
-    276          // Description	: Calculate checksum of the flash data and write into flash
-    277          //-------------------------------------------------------------------------------------------------
-    278          void SavePropertyCS(void) {
-    279          	u16	summa = GetPropertiesCS() ;
-    280          	StorageProperty(eeCRC_OFFSET, (u8 *)&summa, 2);
-    281          }
-    282          
-    283          // End flash.c
+    179          		FCTL1 = FWKEY | WRT;		// WRT  = 1 
+    180          		memcpy(DestPtr, SrcPtr, len);
+    181          		while(1) if(!(BUSY&FCTL3))break;
+    182          		FCTL1 = FWKEY;			// WRT  = 0 
+    183          		FCTL3 = FWKEY | LOCK;		// Lock = 1 
+    184              }
+    185              while(DestPtr[len-1] != SrcPtr[len-1]);
+    186          	_EINT();
+    187          }
+    188          
+    189          
+    190          //-------------------------------------------------------------------------------------------------
+    191          // Function		: void FlashEraseSegmentSafe(int safe_bytes)
+    192          // Parameters	: safe_bytes - number of bytes saved over backup
+    193          // Return		: None
+    194          // Description	: Erase one segment of flash with saving content into backup
+    195          //-------------------------------------------------------------------------------------------------
+    196          void FlashEraseSegmentSafe(int safe_bytes) {
+    197          	memcpy(SegCBackup, (void *)FLASH_SEG_ADDR, safe_bytes);
+    198          	FlashEraseSegment((void *)FLASH_SEG_ADDR);
+    199          }
+    200          
+    201          //-------------------------------------------------------------------------------------------------
+    202          // Function		: void FlashEraseSegmentSafe(int safe_bytes)
+    203          // Parameters	: restore_bytes - number of bytes restored from backup
+    204          // Return		: None
+    205          // Description	: Write one segment of flash with restoring content from backup
+    206          //-------------------------------------------------------------------------------------------------
+    207          void FlashWriteSegmentSafe(int restore_bytes) {
+    208          	FlashWriteArray((unsigned char *)FLASH_SEG_ADDR, SegCBackup, restore_bytes);
+    209          }
+    210          
+    211          
+    212          
+    213          //-------------------------------------------------------------------------------------------------
+    214          // Function		: void StorageProperty(u16 seg_offset, unsigned char * data, u8 len)
+    215          // Parameters	: seg_offset - offset from begin of datasegment, data - ptr to data array, len - length of data
+    216          // Return		: None
+    217          // Description	: Write array property into flash
+    218          //-------------------------------------------------------------------------------------------------
+    219          void StorageProperty(u16 seg_offset, unsigned char * data, u8 len) {		 
+    220          	FlashInit();
+    221          	//
+    222          	FlashEraseSegmentSafe(FLASH_LEN);		// Кол-во сохраненных байт
+    223          	memcpy(((u8 *)(&SegCBackup[0] + seg_offset)), data, len);
+    224          	FlashWriteSegmentSafe(FLASH_LEN);
+    225          	//
+    226          	FlashDeInit();
+    227          }
+    228          
+    229          
+    230          //-------------------------------------------------------------------------------------------------
+    231          // Function		: void StoragePropertyByte(u16 seg_offset, u8 byte)
+    232          // Parameters	: seg_offset - offset from begin of datasegment, byte - byte for write to flash
+    233          // Return		: None
+    234          // Description	: Write word property into flash
+    235          //-------------------------------------------------------------------------------------------------
+    236          void StoragePropertyByte(u16 seg_offset, u8 byte) {
+    237          	u8	data = byte;
+    238          	StorageProperty(seg_offset, (u8 *)&data, 1);
+    239          }
+    240          
+    241          
+    242          
+    243          //-------------------------------------------------------------------------------------------------
+    244          // Function		: void StoragePropertyWord(u16 seg_offset, u16 word)
+    245          // Parameters	: seg_offset - offset from begin of datasegment, word - word for write to flash
+    246          // Return		: None
+    247          // Description	: Write word property into flash
+    248          //-------------------------------------------------------------------------------------------------
+    249          void StoragePropertyWord(u16 seg_offset, u16 word) {
+    250          	u16	data = word;
+    251          	StorageProperty(seg_offset, (u8 *)&data, 2);
+    252          }
+    253          
+    254          
+    255          
+    256          //-------------------------------------------------------------------------------------------------
+    257          // Function		: u16 GetPropertiesCRC(void)
+    258          // Parameters	: None
+    259          // Return		: Value of flash data checksum
+    260          // Description	: Calculate checksum of the flash data 
+    261          //-------------------------------------------------------------------------------------------------
+    262          u16 GetPropertiesCS(void) {
+    263          	u16		summa = 0;
+    264          	u8		i = PROPERTIES_LEN / 2;
+    265          	u16 * 	ptr = (u16 *) &ee_config;
+    266          	while (i--) {
+    267          		summa ^= *ptr++;
+    268          	}
+    269          	//
+    270          	return summa;
+    271          }
+    272          
+    273          
+    274          
+    275          //-------------------------------------------------------------------------------------------------
+    276          // Function		: void SavePropertyCRC(void)
+    277          // Parameters	: None
+    278          // Return		: None
+    279          // Description	: Calculate checksum of the flash data and write into flash
+    280          //-------------------------------------------------------------------------------------------------
+    281          void SavePropertyCS(void) {
+    282          	u16	summa = GetPropertiesCS() ;
+    283          	StorageProperty(eeCRC_OFFSET, (u8 *)&summa, 2);
+    284          }
+    285          
+    286          // End flash.c
 
    Maximum stack usage in bytes:
 

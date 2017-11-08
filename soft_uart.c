@@ -262,7 +262,6 @@ void SoftUART_RxParse(void) {
 					//SetFireLevels(res);
 					break;
 				case COMMAND_CALIBR_00:
-					VLO_TimerCalibr();
 					SetLevels(delta);
 					SetLimitCompens();
 					break;
@@ -274,7 +273,7 @@ void SoftUART_RxParse(void) {
 			break;
 		case Q_SET_MEM_ALL:
 			StorageProperty(tmp1, &uart_rx_buf[2], PROPERTIES_LEN);
-#if (CRC_ENABLE == 1)	
+#if (1 == CRC_ENABLE)	
 			SavePropertyCS();
 #endif
 			break;

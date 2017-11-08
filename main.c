@@ -172,52 +172,6 @@ void Timer_A0_SetDelay(u16 period);
 void Timer_A0_Off(void);
 void JP1_Define(void);
 
-
-
-
-//--------------------------------------------------------------------------------
-// Function		: void VLO_TimerCalibr(void)
-// Parameters	: None
-// Return		: None
-// Description	: Calculation calibration value of VLO timer
-//--------------------------------------------------------------------------------
-void VLO_TimerCalibr(void) {
-	u16 clk;
-	
-	// Start timer 1MHz
-	TACTL = TASSEL_2 + MC_1 + ID_3;     	 	// SMCLK, up mode  / 8
-	//			
-	CCR0 = 62500 - 1;	                    // Period 0.5sec
-	CCTL1 = 0; 			                    // CCR1 reset/set
-	TACCTL0 = CCIE;							// Разрешаем прерывание таймера по достижению значения TACCCR0.
-	//
-	clk = 0;
-	while (1) {
-		if (fTimer50msOn) {
-			fTimer50msOn = 0;
-			clk++;
-		}
-		if (fTimerA_On) {
-			fTimerA_On = 0;
-			clk++;
-			break;
-		}
-	}
-	//
-	//SoundStop();							// Disable interrupts of timer
-	TACTL = 0;  
-	TACCTL0 = 0;				// Запрещаем прерывание таймера по достижению значения TACCCR0.
-	//
-	if (clk != CONFIG->timer_calibr) {
-		StoragePropertyWord(eeTIMER_CALIBR_OFFSET, clk * 2);
-		#if (CRC_ENABLE == 1)
-		SavePropertyCS();
-		#endif
-	}
-	//
-}
-
-
 //--------------------------------------------------------------------------------
 // Function		: void ClearDriftVar(void)
 // Parameters	: None
@@ -243,7 +197,7 @@ void SetLimitCompens(void) {
 	//
 	StoragePropertyWord(eeLIMIT_LONG_DRIFT_OFFSET, norm / 2);
 	//
-#if (CRC_ENABLE == 1)
+#if (1 == CRC_ENABLE)
 	SavePropertyCS();
 #endif
 	//
@@ -273,7 +227,7 @@ void SetLevels(u16 norm) {
 	StoragePropertyWord(eeLIMIT_PREFIRE_OFFSET, temp);
 	
 	//
-#if (CRC_ENABLE == 1)
+#if (1 == CRC_ENABLE)
 	SavePropertyCS();
 #endif
 	//
@@ -319,7 +273,7 @@ void SetLevelsFromCalibr(u16 norm, u8 nonlinearity_corr) {
 	StoragePropertyWord(eeLIMIT_PREFIRE_OFFSET, temp);
 	
 	//
-#if (CRC_ENABLE == 1)
+#if (1 == CRC_ENABLE)
 	SavePropertyCS();
 #endif
 	//
@@ -339,10 +293,17 @@ void DeviceStart(void) {
 
 	DeviceFault.byte = 0;		// Reset faults flags
 	CalibrFault.byte = 0;		// Reset faults flags
-	//		
-	VLO_TimerCalibr();			// Calibration VLO Timer
 	//
 	ClearDriftVar();
+	
+#if (CRC_ENABLE == 1)
+	// Check CS of Memory
+	DeviceFault.fFaultCRC = 0;
+	if (GetPropertiesCS() != CONFIG->CS) {
+		DeviceFault.fFaultCRC = 1;
+	}
+#endif
+
 	
 }
 
@@ -376,30 +337,6 @@ static u16 getTimerValue(u16 time_sec) {
 	time *= time_sec;	
 	return time;
 }
-
-
-//--------------------------------------------------------------------------------
-// Function		: void VLO_TimerCalibr(void)
-// Parameters	: None
-// Return		: None
-// Description	: Calculation calibration value of VLO timer
-//--------------------------------------------------------------------------------
-u16 VLO_GetPeriod(void) {
-	
-	// Start timer 8MHz
-	TACTL = TASSEL_2 + MC_1;           	 	// SMCLK, up mode
-	//			
-	CCR0 =0xFFFF;                    		// Period 2.5mS
-	CCTL1 = 0; 			                    // CCR1 reset/set
-	TACCTL0 = 0;							// Разрешаем прерывание таймера по достижению значения TACCCR0.
-	//
-	while (fTimer50msOn == 0) {}
-	fTimer50msOn = 0;
-	//while (fTimer50msOn == 0) {}
-	
-	return TAR;
-}
-
 
 //--------------------------------------------------------------------------------
 // Function		: void VLO_TimerCalibr(void)
@@ -448,6 +385,9 @@ void ADC_MeasureInit(u8 input_no, u8 refer) {
 		case REF_3_3V:  
 			ADC10CTL0 = SREF_0 + ADC10SHT_1 + MSC + ADC10ON + ADC10IE  + REFOUT + REFON + REF2_5V;	// Sample&hold = 8 x ADC10CLKs
 			break;
+	default:
+		ADC10CTL0 = SREF_1 + ADC10SHT_1 + MSC + REFOUT + REFON + ADC10ON + ADC10IE + REF2_5V;	// Sample&hold = 8 x ADC10CLKs
+
 	}
 	//
 	DelayUs(50);	
@@ -923,13 +863,18 @@ void FaultSignalManager(void) {
 			// Long Term Drift fault
 		led_y = LED_PULSE_3;
 		}else	
+		if (DeviceFault.fFaultCRC) {
+			// Long Term Drift fault
+		led_y = LED_PULSE_4;
+		}else	
 		if (DeviceFault.fSignal_Hi) {
 		// Level signal is very big
 		led_y = LED_PULSE_5;
 		}
 	}
 	
-	if (CalibrFault.byte) {
+	
+		if (CalibrFault.byte) {
 		// Calibration fault signals
 		
 		DeviceMode = MODE_FAULT;
@@ -961,7 +906,7 @@ void FaultSignalManager(void) {
 	}
 	//
 
-	if (fault_timer) {
+	if (0 != fault_timer) {
 		fault_timer--;
 		//
 		if (fault_timer == 0) {
@@ -1096,8 +1041,9 @@ void CalibrationResultAnalise(void) {
 		if (i == 0) {
 			if (d >= 480) {
 				CalibrFault.fCalibr_Hi = 1;
-				StoragePropertyByte(eeCALIBR_FAULT_OFFSET, CalibrFault.byte);
-				return;
+				goto label_return;
+				//StoragePropertyByte(eeCALIBR_FAULT_OFFSET, CalibrFault.byte);
+				//return;
 			}
 			//
 
@@ -1148,8 +1094,15 @@ void CalibrationResultAnalise(void) {
 	}
 	//
 //DL3   
-		NFAULT_SET();
+label_return:
+	NFAULT_SET();
 	StoragePropertyByte(eeCALIBR_FAULT_OFFSET, CalibrFault.byte);
+
+	#if (1 == CRC_ENABLE)	
+	DeviceFault.fFaultCRC = 0;
+	SavePropertyCS();
+	#endif
+
 }
 	
 
@@ -2172,7 +2125,7 @@ void DeviceDiagnostics(void) {
 	//
 	//
 		
-#if (CRC_ENABLE == 1)
+#if (1 == CRC_ENABLE)
 	// Check CS of Memory
 	DeviceFault.fFaultCRC = 0;
 	if (GetPropertiesCS() != CONFIG->CS) {

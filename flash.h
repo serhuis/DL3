@@ -34,18 +34,15 @@
 #define PROPERTIES_LEN				38		/* Количество байт properties, размещенных во флеш (without CRC) */
 
 #define FLASH_SEG_ADDR				0x01040  /* Seg C */
+//	#define FLASH_SEG_ADDR				0x01000  /* Seg C */
 
 
 // Смещения адресов параметров  относительно начала сектора FLASH_SEG_ADDR
 #define	eeVERSION_OFFSET			0
 #define	eeDEV_TYPE_OFFSET			2
 #define	eeSERIAL_OFFSET				3
-#define	eeDATE_PROD_OFFSET			6
-#define	eeTIMER_CALIBR_OFFSET			8
-
-#define	eeRF_CHANNEL_OFFSET			10
-#define	eeRF_ADDR_OFFSET			11
-#define	eeRF_ADDR_ADD				12
+#define	eeDATE_PROD_OFFSET		6
+#define eeDEV_NAME_OFFSET			8
 
 #define	eeCONFIG_REG_OFFSET			16
 #define	eeLIMIT_NORM_OFFSET			18
@@ -61,8 +58,6 @@
 #define	ee_AMP_NO				37
 #define	eeCRC_OFFSET				38
 
-
-
 typedef union {
 	 u16	word;
 	 struct  {
@@ -72,16 +67,14 @@ typedef union {
 
 
 typedef struct  {
-	// Common section
+	// Dev info
 	u16			version;			// Current firmware version 
 	u8			dev_type;			// Type of device
 	u8			serial[3];			// Serial No
 	u16			date_prod;			// Date production
-	u16			timer_calibr;		// Timer calibration value
-	u8			rf_channel;			// Current RF Channel
-	u8			rf_addr;			// Current RF Addr
-	u8			rf_add[4];			// NU
-	// Specific section
+  char		dev_name[8];
+	
+	// Sensor section
 	tCfgReg		config_reg;			// Config register
 	u16			limit_norm;			// Значение фонового сигнала (в чистом воздухе) (increment)
 	u16			limit_prefire;		// Prefire threshold (increment)
@@ -95,7 +88,7 @@ typedef struct  {
 	u8			nu;					// NU
 	u8			Gain;				// Gain = X = 0...2 + reference value = 0x0X (1.5V), 0x1X (2.5V), 0x2X (3.3V),  
 	u8			AMP_No;				// AMP Number (ADC_Input No  = 1 or 2)
-	//	
+
 	u16			CS;					// Checksumm 
 }tEE_CONFIG;
 

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V6.40.1.950/W32 for MSP430           30/May/2017  15:41:05
+# IAR C/C++ Compiler V6.40.1.950/W32 for MSP430           08/Nov/2017  15:50:24
 # Copyright 1996-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for Texas Instruments MSP430
 #
@@ -290,44 +290,43 @@ E:\_ARTON_PROJ\ARTON-DL3\soft\current\soft_uart.c
     262          					//SetFireLevels(res);
     263          					break;
     264          				case COMMAND_CALIBR_00:
-    265          					VLO_TimerCalibr();
-    266          					SetLevels(delta);
-    267          					SetLimitCompens();
-    268          					break;
-    269          			}
-    270          			break;
-    271          		case Q_GET_MEM:
-    272          			len = uart_rx_buf[2];
-    273          			SoftUART_TxString(((u8*)CONFIG + tmp1), len);
-    274          			break;
-    275          		case Q_SET_MEM_ALL:
-    276          			StorageProperty(tmp1, &uart_rx_buf[2], PROPERTIES_LEN);
-    277          #if (CRC_ENABLE == 1)	
-    278          			SavePropertyCS();
-    279          #endif
-    280          			break;
-    281          		case Q_GET_GRAPH:
-    282          			
-    283          			fSendingGraph = 1;
+    265          					SetLevels(delta);
+    266          					SetLimitCompens();
+    267          					break;
+    268          			}
+    269          			break;
+    270          		case Q_GET_MEM:
+    271          			len = uart_rx_buf[2];
+    272          			SoftUART_TxString(((u8*)CONFIG + tmp1), len);
+    273          			break;
+    274          		case Q_SET_MEM_ALL:
+    275          			StorageProperty(tmp1, &uart_rx_buf[2], PROPERTIES_LEN);
+    276          #if (1 == CRC_ENABLE)	
+    277          			SavePropertyCS();
+    278          #endif
+    279          			break;
+    280          		case Q_GET_GRAPH:
+    281          			
+    282          			fSendingGraph = 1;
+    283          			
     284          			
-    285          			
-    286          			loc_buf[0] = Q_SEND_GRAPH1;
-    287          			loc_buf[1] = SIGNAL_ARRAY_LEN * 2;
-    288          			SoftUART_TxString(loc_buf, 2);
-    289          			//
-    290          			SoftUART_TxString((u8*)&signal_array[0], SIGNAL_ARRAY_LEN * 2);
+    285          			loc_buf[0] = Q_SEND_GRAPH1;
+    286          			loc_buf[1] = SIGNAL_ARRAY_LEN * 2;
+    287          			SoftUART_TxString(loc_buf, 2);
+    288          			//
+    289          			SoftUART_TxString((u8*)&signal_array[0], SIGNAL_ARRAY_LEN * 2);
+    290          			
     291          			
-    292          			
-    293          			break;
-    294          	}
-    295          	//
-    296          	fInterconnect = 0;
-    297          	//
-    298          }
+    292          			break;
+    293          	}
+    294          	//
+    295          	fInterconnect = 0;
+    296          	//
+    297          }
+    298          
     299          
-    300          
-    301          // End soft_uart.c
-    302          
+    300          // End soft_uart.c
+    301          
 
    Maximum stack usage in bytes:
 
@@ -343,7 +342,6 @@ E:\_ARTON_PROJ\ARTON-DL3\soft\current\soft_uart.c
         4   -> SetLimitCompens
         4   -> SoftUART_TxString
         4   -> StorageProperty
-        4   -> VLO_TimerCalibr
       6   SoftUART_SendByte
         6   -> DelayUs_8MHz
       2   SoftUART_SetReceiveByte
@@ -373,7 +371,7 @@ E:\_ARTON_PROJ\ARTON-DL3\soft\current\soft_uart.c
        1  P2REN
       38  SoftUART_Init
       24  SoftUART_ResetReceiveByte
-     184  SoftUART_RxParse
+     180  SoftUART_RxParse
       78  SoftUART_SendByte
       36  SoftUART_SetReceiveByte
       22  SoftUART_TxChar
@@ -391,12 +389,12 @@ E:\_ARTON_PROJ\ARTON-DL3\soft\current\soft_uart.c
        1  uart_timer
 
  
- 472 bytes in segment CODE
+ 468 bytes in segment CODE
   16 bytes in segment DATA16_AN
    8 bytes in segment DATA16_C
   42 bytes in segment DATA16_Z
  
- 472 bytes of CODE  memory
+ 468 bytes of CODE  memory
    8 bytes of CONST memory
   42 bytes of DATA  memory (+ 16 bytes shared)
 
